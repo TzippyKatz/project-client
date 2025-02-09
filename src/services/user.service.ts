@@ -1,35 +1,35 @@
 import axios from "axios"
-import { typeMealType } from "../types/typeMeal.type"
+import { userType } from "../types/userType"
 
-const serviceUrl = '/api/TypeMeal'
+const serviceUrl = '/api/User'
 
-export const getTypeMeal = async () =>{
+export const getUsers = async () =>{
     const response = await axios.get(serviceUrl)
     const data = await response.data
     return data
 }
 
-export const getTypeMealById = async (typeMeal: Omit<typeMealType, 'id'>) =>{
+export const getUsersById = async (user: Omit<userType, 'id'>) =>{
     const response = await axios.get(serviceUrl)
     const data = await response.data
     return data
 }
 
 //אני כן מקבלת כרגע מזהה אבל אני צריכה לשנות את זה
-export const addTypeMeal = async (typeMeal: Omit<typeMealType, 'id'>) =>{
-    const response = await axios.post(serviceUrl, typeMeal)
+export const addUser = async (user: Omit<userType, 'id'>) =>{
+    const response = await axios.post(serviceUrl, user)
     const data = response.data
     return data
 }
 
-export const deleteTypeMeal = async (id: number) =>{
+export const deleteUser = async (id: number) =>{
     const response = await axios.delete(`${serviceUrl}/${id}`)
     const data = response.data
     return data
 }
 
-export const updateTypeMeal = async (typeMeal: typeMealType) =>{
-    const response = await axios.put(`${serviceUrl}/${typeMeal.id}`, typeMeal)
+export const updateUser = async (user: userType) =>{
+    const response = await axios.put(`${serviceUrl}/${user.id}`, user)
     const data = response.data
     return data
 }

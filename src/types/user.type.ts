@@ -1,4 +1,4 @@
-import { foodType } from "./foodType"
+import { foodType } from "./food.type"
 
 export type userType = {
     id: number;
@@ -13,4 +13,10 @@ export type userType = {
     imageUrl: string;
     weight: Array<number>;
     dietId: number;
+}
+
+
+export type AuthUser = {
+    user: userType,
+    token: string
 }

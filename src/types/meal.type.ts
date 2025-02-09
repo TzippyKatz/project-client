@@ -1,4 +1,4 @@
-import { foodType } from "./foodType";
+import { foodType } from "./food.type";
 
 export type mealType = {
     id: number;

@@ -1,35 +1,35 @@
 import axios from "axios"
-import { userType } from "../types/userType"
+import { foodType } from "../types/food.type"
 
-const serviceUrl = '/api/users'
+const serviceUrl = '/api/Food'
 
-export const getUsers = async () =>{
+export const getFoods = async () =>{
     const response = await axios.get(serviceUrl, )
     const data = response.data
     return data
 }
 
-export const getUserById = async (user: Omit<userType, 'id'>) =>{
+export const getFoodById = async (food: Omit<foodType, 'id'>) =>{
     const response = await axios.get(serviceUrl)
     const data = response.data
     return data
 }
 
 //אני כן מקבלת כרגע מזהה אבל אני צריכה לשנות את זה
-export const addUser = async (user: Omit<userType, 'id'>) =>{
+export const addFood = async (food: Omit<foodType, 'id'>) =>{
     const response = await axios.post(serviceUrl)
     const data = response.data
     return data
 }
 
-export const deleteUser = async (id: number) =>{
+export const deleteFood = async (id: number) =>{
     const response = await axios.delete(`${serviceUrl}/${id}`)
     const data = response.data
     return data
 }
 
-export const updateUser = async (user: userType) =>{
-    const response = await axios.put(`${serviceUrl}/${user.id}`)
+export const updateFood = async (food: foodType) =>{
+    const response = await axios.put(`${serviceUrl}/${food.id}`)
     const data = response.data
     return data
 }
