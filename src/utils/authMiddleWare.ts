@@ -2,7 +2,7 @@ import { InternalAxiosRequestConfig, AxiosResponse } from "axios";
 import { request } from "https";
 import { getSession, isValidToken, removeSession } from "../auth/auth.utils"
 
-export const aurhRequestMiddleware = (request: InternalAxiosRequestConfig) => {
+export const authRequestMiddleware = (request: InternalAxiosRequestConfig) => {
     const authUser = getSession()
     if(!authUser || isValidToken(authUser.token)){
         removeSession()
@@ -11,7 +11,7 @@ export const aurhRequestMiddleware = (request: InternalAxiosRequestConfig) => {
     return request
 }
 
-export const authResponseMiddleware = (response: AxiosResponse) => {
+export const authResponseMiddlware = (response: AxiosResponse) => {
     if(response.status === 401)
     {
         removeSession()
