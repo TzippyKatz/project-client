@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { PATHS } from ".\routes\paths.ts";
+import PATHS from "../../routes/paths"
 
 export default function NavBar() {
     return <nav>

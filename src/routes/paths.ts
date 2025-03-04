@@ -5,4 +5,4 @@ const PATHS = {
     products: "/products"
 };
 
-export default PATHS;
+export default PATHS

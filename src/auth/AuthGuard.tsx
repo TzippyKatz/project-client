@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { useAppSelector } from "../redux/store"
 import { selectAuth } from "../redux/auth/auth.selectors"
 import { Navigate, useLocation } from "react-router-dom"
-import { PATHS } from "../routes/paths"
+import PATHS from "./../routes/paths";
 
 type Props = {
     children: ReactNode

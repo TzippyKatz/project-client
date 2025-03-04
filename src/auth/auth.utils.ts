@@ -1,4 +1,4 @@
-import { PATHS } from "../routes/paths";
+import PATHS from "./../routes/paths";
 import { AuthUser } from "../types/user.type"
 import axios from "../utils/axios";
 
