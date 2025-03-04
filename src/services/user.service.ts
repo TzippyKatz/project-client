@@ -1,5 +1,5 @@
 import axios from "axios"
-import { userType } from "../types/userType"
+import { userType } from "../types/user.type"
 
 const serviceUrl = '/api/User'
 
