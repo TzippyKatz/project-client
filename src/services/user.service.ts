@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../utils/axios" 
 import { userType } from "../types/user.type"
 
 const serviceUrl = '/api/User'

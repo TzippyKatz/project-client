@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
-const baseUrl = 'https://localhost:7280/swagger/index.html'
+const baseUrl = 'https://localhost:7280/api'
 
 const axiosInstance = axios.create({ baseURL: baseUrl })
 
