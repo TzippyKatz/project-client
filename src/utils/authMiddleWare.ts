@@ -1,5 +1,4 @@
 import { InternalAxiosRequestConfig, AxiosResponse } from "axios";
-import { request } from "https";
 import { getSession, isValidToken, removeSession } from "../auth/auth.utils"
 
 export const authRequestMiddleware = (request: InternalAxiosRequestConfig) => {

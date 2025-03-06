@@ -1,7 +1,8 @@
 import axios from "axios"
 import { mealType } from "../types/meal.type"
+import { baseUrl } from "./axios"
 
-const serviceUrl = '/api/Meal'
+const serviceUrl = `${baseUrl}/Meal`
 
 export const getMeals = async () =>{
     const response = await axios.get(serviceUrl, )

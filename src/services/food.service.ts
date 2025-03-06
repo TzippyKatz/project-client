@@ -1,12 +1,18 @@
 import axios from "axios";
 import { foodType } from "../types/food.type"
+import { baseUrl } from "./axios";
 
-const serviceUrl = '/api/Food'
+const serviceUrl = `${ baseUrl }/Food`;
 
 export const getFoods = async () =>{
-    const response = await axios.get(serviceUrl)
-    const data = response.data
-    return data
+    try {
+        const response = await axios.get(serviceUrl)
+        const data = response.data
+        return data
+    } catch (error) {
+        console.error('Error fetching foods:', error)
+        throw error
+    }
 }
 
 export const getFoodById = async (id: number) => {

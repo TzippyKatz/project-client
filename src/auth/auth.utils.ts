@@ -4,11 +4,11 @@ import axios from "../utils/axios";
 
 export const setSession = (user: AuthUser) => {
     localStorage.setItem('user', JSON.stringify(user))
-    axios.defaults.headers.common.Authorization = `Bearer ${user.token}`
+    axios.defaults.headers.common.Authorization = `Bearer ${user.token}`;
 }
 
 export const setAuthorizationHeader = (token: string) => {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
 export const getSession = (): AuthUser | null => {

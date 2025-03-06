@@ -1,7 +1,8 @@
 import axios from "axios"
 import { typeMealType } from "../types/typeMeal.type"
+import { baseUrl } from "./axios"
 
-const serviceUrl = '/api/TypeMeal'
+const serviceUrl = `${baseUrl}/TypeMeal`
 
 export const getTypeMeal = async () =>{
     const response = await axios.get(serviceUrl)
@@ -23,13 +24,13 @@ export const addTypeMeal = async (typeMeal: Omit<typeMealType, 'id'>) =>{
 }
 
 export const deleteTypeMeal = async (id: number) =>{
-    const response = await axios.delete(`${serviceUrl}/${id}`)
+    const response = await axios.delete(`${serviceUrl}/${id}`);
     const data = response.data
     return data
 }
 
 export const updateTypeMeal = async (typeMeal: typeMealType) =>{
-    const response = await axios.put(`${serviceUrl}/${typeMeal.id}`, typeMeal)
+    const response = await axios.put(`${serviceUrl}/${typeMeal.id}`, typeMeal);
     const data = response.data
     return data
 }

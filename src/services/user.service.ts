@@ -1,7 +1,8 @@
 import axios from "../utils/axios" 
 import { userType } from "../types/user.type"
+import { baseUrl } from "./axios"
 
-const serviceUrl = '/api/User'
+const serviceUrl = `${baseUrl}/User`
 
 export const getUsers = async () =>{
     const response = await axios.get(serviceUrl)

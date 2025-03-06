@@ -1,5 +1,5 @@
 const PATHS = {
-    home: "/home",
+    home: "/",
     login: "/login",
     about: "/about",
     products: "/products"
