@@ -1,3 +1,4 @@
+import { type } from "os";
 import { foodType } from "./food.type"
 
 export type userType = {
@@ -19,4 +20,9 @@ export type userType = {
 export type AuthUser = {
     user: userType,
     token: string
+}
+
+export type loginUserType = {
+    email: string;
+    password: string;
 }

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFoods } from "../services/food.service";
-import { getUsers } from "../services/user.service";
 import { foodType } from "../types/food.type";
-import { userType } from "../types/user.type";
+import axios from "axios";
 
 export const HomePage = () => {
     const [f, setF] = useState<foodType[]>([]);
@@ -13,8 +12,8 @@ export const HomePage = () => {
         const fetchFoods = async () => {
             try {
                 setLoading(true);
-                const data = await getFoods();
-                setF(data);
+                const response = await axios.get('URL_TO_YOUR_API'); // הזן את ה- URL של ה- API שלך
+                setF(response.data);
             } catch (err) {
                 setError("Failed to fetch food");
             } finally {
@@ -23,6 +22,7 @@ export const HomePage = () => {
         };
         fetchFoods();
     }, []);
+    
 
     return (
         <div>

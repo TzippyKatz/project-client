@@ -9,13 +9,13 @@ export default function Layout() {
     </>
 }
 
-
 const Header = () => {
     return <header>
         <nav>
             <NavLink to='./Home.tsx'>Home</NavLink>
-            <NavLink to='' >About</NavLink>
-            <NavLink to='' state={{ myName: 'saxdsd' }}>Products</NavLink>
+            <NavLink to='/About.tsx' >About</NavLink>
+            <NavLink to='/Login.tsx' >Login</NavLink>
+            <NavLink to='/PersonalArea' state={{ myName: 'saxdsd' }}>Personal area</NavLink>
         </nav>
     </header>
 }
