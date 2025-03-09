@@ -14,3 +14,5 @@ export const loginUser = async (loginUser: loginUserType) => {
     const data = response.data
     return data
 }
+
+console.log()
