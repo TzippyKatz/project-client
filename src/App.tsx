@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import PATHS from "./../src/routes/paths";
 import { HomePage } from './layouts/Home';
+import Register from './layouts/Register';
 import { LoginPage } from './layouts/Login';
 import { DietPage } from './layouts/Diet';
 import { RegisterPage } from './layouts/Register';
@@ -14,7 +15,7 @@ function App() {
       <LoginPage />
       {/* <DietPage /> */}
       {/* <RegisterPage /> */}
-    </div>
+        </div>
   );
 }
 

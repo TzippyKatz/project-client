@@ -10,10 +10,10 @@ export type userType = {
     lastName: string;
     email: string;
     phone: string;
-    favoriteFood: Array<foodType>;
-    imageUrl: string;
-    weight: Array<number>;
-    dietId: number;
+    // favoriteFood: Array<foodType>;
+    // imageUrl: string;
+    // weight: Array<number>;
+    // dietId: number;
 }
 
 
