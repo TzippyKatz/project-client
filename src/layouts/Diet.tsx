@@ -18,10 +18,13 @@ export const DietPage = () => {
         typeMealId: 0
     };
     
-    const [DietitianId, setDietitianId] = useState<number>(0)
-    const [descGoal, setDescGoal] = useState<string>("")
-    const [meals, setMeals] = useState<Array<mealType>>([defaultMealType])
-    const [rate, setRate] = useState<number>(0)
+    const [formData, setFormData] = useState({
+        DietitianId: 0,
+        descGoal: "",
+        meals: [] as mealType[],
+        rate: 0,
+      });
+
     const [error, setError] = useState<string | null>(null)
     const [diets, setDiets] = useState<Array<dietType>>([])
 
@@ -37,7 +40,7 @@ export const DietPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const dietType = {DietitianId, descGoal, meals, rate}
+        const dietType = formData
 
         try{
             console.log("trying add diet")
@@ -55,10 +58,10 @@ export const DietPage = () => {
             <h2>דיאטה חדשה</h2>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
                 <label>תיאור:</label>
-                <input type="text" value={descGoal} onChange={(e) => setDescGoal(e.target.value)} />
+                <input type="text" value={formData.descGoal} onChange={(e) => setFormData({ ...formData, descGoal: e.target.value})} />
     
                 <label>משך זמן בשבועות:</label>
-                <input type="number" onChange={(e) => setRate(Number(e.target.value))} />
+                <input type="number" onChange={(e) => setFormData({ ...formData, rate: Number(e.target.value)})} />
     
                 <label>גיל מינימום:</label>
                 <input type="number" />

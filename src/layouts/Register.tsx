@@ -2,7 +2,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "../utils/axios";
 import { AxiosError } from "axios";
 
-const Register = () => {
+export const RegisterPage = () => {
   const [formData, setFormData] = useState({
     userName: "",
     firstName: "",
@@ -69,5 +69,3 @@ const Register = () => {
     </form>
   );
 };
-
-export default Register;
