@@ -23,6 +23,8 @@ export const DietPage = () => {
         descGoal: "",
         meals: [] as mealType[],
         rate: 0,
+        ageMinimum: 0,
+        ageMaximum: 0
       });
 
     const [error, setError] = useState<string | null>(null)
@@ -45,7 +47,7 @@ export const DietPage = () => {
         try{
             console.log("trying add diet")
             const response = await addDiet(dietType)
-            console.log("response")
+            console.log(response)
         } catch(err){
             setError("Failed to add diet")
         } finally {
@@ -64,10 +66,10 @@ export const DietPage = () => {
                 <input type="number" onChange={(e) => setFormData({ ...formData, rate: Number(e.target.value)})} />
     
                 <label>גיל מינימום:</label>
-                <input type="number" />
+                <input type="number" onChange={(e) => setFormData({ ...formData, ageMinimum: Number(e.target.value)})} />
     
                 <label>גיל מקסימום:</label>
-                <input type="number" />
+                <input type="number" onChange={(e) => setFormData({ ...formData, ageMaximum: Number(e.target.value)})} />
     
                 <label>מטרה:</label>
                 <select>

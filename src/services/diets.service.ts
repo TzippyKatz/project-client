@@ -20,17 +20,20 @@ export const getDietById = async (diet: Omit<dietType, 'id'>) =>{
 }
 
 //אני כן מקבלת כרגע מזהה אבל אני צריכה לשנות את זה
+//עובד נפלא ללא הטוקן
+//גם בפוסטמן עבד ללא טוקן
 export const addDiet = async (diet: Omit<dietType, 'id'>) =>{
-// export const addDiet = async (diet: dietType) =>{
     const token = localStorage.getItem('token')
+    const formData = new FormData();
+    formData.append("DietitianId", String(diet.DietitianId)); 
+    formData.append("Meals", JSON.stringify(diet.meals));  // אם זה מערך, צריך JSON
+    formData.append("DescGoal", diet.descGoal);
+    formData.append("Rate", String(diet.rate));
+    formData.append("ageMinimum", String(diet.ageMinimum)); 
+    formData.append("ageMaximum", String(diet.ageMaximum));
     
-    const response = await axios.post(serviceUrl, null, {
-        params: {
-            DietitianId: diet.DietitianId,
-            descGoal: diet.descGoal,
-            meals: diet.meals,
-            rate: diet.rate
-        },
+    const response = await axiosInstance.post(serviceUrl, formData, {
+
         headers: {
             Authorization: `Bearer ${token}` // הוספת הטוקן לכותרת
         }

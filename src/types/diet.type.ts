@@ -6,4 +6,6 @@ export type dietType = {
     descGoal: string
     meals: Array<mealType>
     rate: number
+    ageMinimum: number,
+    ageMaximum: number
 }

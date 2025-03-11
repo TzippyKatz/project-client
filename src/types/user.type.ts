@@ -10,12 +10,11 @@ export type userType = {
     lastName: string;
     email: string;
     phone: string;
-    // favoriteFood: Array<foodType>;
-    // imageUrl: string;
-    // weight: Array<number>;
-    // dietId: number;
+    file: File | null;
+    favoriteFood: Array<foodType>;
+    weight: Array<number>;
+    dietId: number;
 }
-
 
 export type AuthUser = {
     user: userType,

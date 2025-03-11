@@ -9,12 +9,12 @@ const token = 'aXXXXXXa'
 
 axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-axiosInstance.interceptors.request.use((request) => {
-    if(false){
-        throw new Error('unathrized')
-    }
-    return request
-})
+// axiosInstance.interceptors.request.use((request) => {
+//     if(false){
+//         throw new Error('unathrized')
+//     }
+//     return request
+// })
 
 axiosInstance.interceptors.response.use(
     (response) => response, 
