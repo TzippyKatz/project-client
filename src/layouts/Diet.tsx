@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { addDiet, getDiet } from "../services/diets.service";
 import { dietType } from "../types/diet.type";
 import { mealType } from "../types/meal.type"
+import { useNavigate } from "react-router-dom";
 
 
 export const DietPage = () => {
@@ -55,6 +56,7 @@ export const DietPage = () => {
         }
     }
 
+    const navigate = useNavigate();
     return (
         <div style={{ textAlign: "center", direction: "rtl" }}>
             <h2>דיאטה חדשה</h2>
@@ -80,9 +82,9 @@ export const DietPage = () => {
                 </select>
     
                 <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                    <button type="button">ארוחה מס' 1</button>
-                    <button type="button">ארוחה מס' 2</button>
-                    <button type="button">ארוחה מס' 3</button>
+                <button type="button" onClick={() => navigate("/meal")}>ארוחה מס' 1</button>
+                <button type="button" onClick={() => navigate("/meal")}>ארוחה מס' 2</button>
+                <button type="button" onClick={() => navigate("/meal")}>ארוחה מס' 3</button>
                 </div>
     
                 <button type="submit" style={{ marginTop: "10px", backgroundColor: "green", color: "white", padding: "10px 20px", border: "none", cursor: "pointer" }}>

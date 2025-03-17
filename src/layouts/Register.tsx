@@ -52,11 +52,12 @@ export const RegisterPage = () => {
         try {
             console.log("Form Data:", formData);
             const response = await addUser(formData);
-            console.log("Success:", response.data);
+            // console.log("Success:", response.data);
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error("Error response:", error.response?.data); // מה השרת מחזיר
-                console.error("Error status:", error.response?.status); // קוד השגיאה
+                console.error(error.response?.data);
+                // console.error("Error response:", error.response?.data); // מה השרת מחזיר
+                // console.error("Error status:", error.response?.status); // קוד השגיאה
             } else {
                 console.error("Unexpected error:", error);
             }        

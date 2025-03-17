@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginUser } from "../services/login.service";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
     const [email, setEmail] = useState<string>('')
@@ -21,6 +22,7 @@ export const LoginPage = () => {
         }
     };
 
+    const navigate = useNavigate()
     return (
         <div>
             <h1>Login</h1>
@@ -42,7 +44,8 @@ export const LoginPage = () => {
                     onChange={(e) => setPassword(e.target.value)} 
                 /><br /><br />
 
-                <input type="submit" value="Submit" />
+                {/* <button type="submit" >התחבר</button> */}
+                <button type="submit" onClick={() => navigate("/diet")}>התחבר</button>
             </form>
             
             {error && <h1>{error}</h1>}

@@ -1,3 +1,4 @@
+import { Collection } from "typescript";
 import { foodType } from "./food.type";
 
 export type mealType = {

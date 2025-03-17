@@ -12,12 +12,13 @@ export type userType = {
     phone: string;
     file: File | null;
     favoriteFood: Array<foodType>;
-    weight: Array<number>;
+    weight: Array<Number>;
     dietId: number;
 }
 
 export type AuthUser = {
-    user: userType,
+    // user: userType,
+    mail: string
     token: string
 }
 
