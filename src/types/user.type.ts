@@ -17,8 +17,7 @@ export type userType = {
 }
 
 export type AuthUser = {
-    // user: userType,
-    mail: string
+    mail: string,
     token: string
 }
 

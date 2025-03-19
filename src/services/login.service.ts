@@ -16,7 +16,6 @@ export const loginUser = async (loginUser: loginUserType) => {
 
     if (data.token && loginUser.email) {
         setSession({ mail:loginUser.email, token: data.token }); 
-    }
-
+    }    
     return data
 }

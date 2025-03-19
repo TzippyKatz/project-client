@@ -10,14 +10,14 @@ type Props = {
 
 export default function InitializeAuth({ children }: Props) {
     const dispatch = useAppDispatch();
-console.log("check")
-useEffect(() => {
-    const authUser: AuthUser | null = getSession();
+    console.log("check")
+    useEffect(() => {
+        const authUser: AuthUser | null = getSession();
 
-    if (authUser?.token && isValidToken(authUser.token)) {
-        setAuthorizationHeader(authUser.token);
-        dispatch(setUser(authUser.user)); 
-    }
+        if (authUser?.token && isValidToken(authUser.token)) {
+            setAuthorizationHeader(authUser.token);
+            dispatch(setUser(authUser.mail)); 
+        }
 
     dispatch(setInitialize());
 }, [dispatch]);
