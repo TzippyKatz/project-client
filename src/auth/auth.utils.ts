@@ -3,7 +3,7 @@ import { AuthUser } from "../types/user.type"
 import axios from "../utils/axios";
 
 export const setSession = (user: AuthUser) => {
-    localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('user', JSON.stringify(user));
     axios.defaults.headers.common.Authorization = `Bearer ${user.token}`;
 }
 
@@ -15,6 +15,11 @@ export const getSession = (): AuthUser | null => {
     const user = JSON.parse(localStorage.getItem('user') || 'null')
     return user
 }
+
+export const getUserRoleBySession = (token: string): string | undefined => {
+    const decodedToken = jwtDecode(token);
+    return decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+};
 
 export const removeSession = () => {
     localStorage.removeItem('user');
