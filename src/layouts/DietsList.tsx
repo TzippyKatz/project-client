@@ -14,6 +14,7 @@ export const DietsList = () => {
     const [users, setUsers] = useState<userType[]>([])
 
     useEffect(() => {
+        console.log("fkjfsih")
         const fetchDiets = async () => {
             const getDiets = await getDiet()
             console.log("Fetched diets:", getDiets)
