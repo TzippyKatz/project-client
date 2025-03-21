@@ -3,7 +3,7 @@ import { getFoods } from "../services/food.service";
 import { foodType } from "../types/food.type";
 import axios from "axios";
 
-export const HomePage = () => {
+export const HomePageeee = () => {
     const [f, setF] = useState<foodType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);

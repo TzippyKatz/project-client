@@ -28,7 +28,7 @@ export const addUser = async (user: Omit<userType, 'id'>) => {
     formData.append('Email', user.email);
     formData.append('Phone', user.phone);
     // שליחת משקלים כמחרוזת JSON
-    formData.append('Weight', JSON.stringify(user.weight));
+    formData.append('Weight', user.weight as any);
 
     // שליחת מאכלים אהובים כמחרוזת JSON
     formData.append('FavoriteFood', JSON.stringify(user.favoriteFood));

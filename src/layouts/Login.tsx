@@ -2,11 +2,13 @@ import { useState } from "react";
 import { loginUser } from "../services/login.service";
 import { data, useNavigate } from "react-router-dom";
 import { getSession, getUserRoleBySession } from "../auth/auth.utils";
+import { Eye, EyeOff } from "lucide-react";
 
 export const LoginPage = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -39,10 +41,11 @@ export const LoginPage = () => {
                 navigate("/meal");
                 break;
             case "nutritionist":
-                navigate("/diet");
+                navigate("/register");
+                // navigate("/diet");
                 break;
             case "user":
-                navigate("/dashboard");
+                navigate("/register");
                 break;
             default:
                 navigate("/");
@@ -64,14 +67,32 @@ export const LoginPage = () => {
                 /><br /><br />
 
                 <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                /><br /><br />
-
-                <button type="submit" onClick={handleSubmit}>התחבר</button>
+                <div style={{ position: "relative", display: "inline-block" }}>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={{ paddingRight: "30px" }} // מקום לאייקון
+                    />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        style={{
+                            position: "absolute",
+                            right: "5px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer"
+                        }}
+                    >
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                    </div>
+                
+                    <button type="submit" onClick={handleSubmit}>התחבר</button>
             </form>
 
             {error && <h1>{error}</h1>}

@@ -6,7 +6,6 @@ import { baseUrl } from "./axios"
 const serviceUrl = `${baseUrl}/Diet`
 
 export const getDiet = async () => {
-    //
     const response = await axios.get(serviceUrl)
     const data = await response.data
     return data
@@ -52,5 +51,23 @@ export const deleteDiet = async (id: number) => {
 export const updateDiet = async (diet: dietType) => {
     const response = await axios.put(`${serviceUrl}/${diet.id}`, diet)
     const data = response.data
+    return data
+}
+
+export const getDietByDietitianId = async (dietitianId: number) => {
+    const response = await axios.get((`${serviceUrl}/DietitianId/${dietitianId}`))
+    const data = await response.data
+    return data
+}
+
+export const getDietByGoal = async (goal:string) => {
+    const response = await axios.get(`${serviceUrl}/goal/${goal}`)
+    const data = await response.data
+    return data
+}
+
+export const getDietByAge = async (age:number) => {
+    const response = await axios.get(`${serviceUrl}/age/${age}`)
+    const data = await response.data
     return data
 }

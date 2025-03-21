@@ -2,7 +2,9 @@ const PATHS = {
     home: "/",
     login: "/login",
     about: "/about",
-    meals: "/meal"
+    meals: "/meal",
+    profile: "/profile",
+    register: "/register"
 };
 
 export default PATHS

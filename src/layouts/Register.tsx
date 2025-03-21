@@ -14,7 +14,7 @@ export const RegisterPage = () => {
         phone: "",
         file: null as File | null,
         favoriteFood: [],
-        weight: [0],
+        weight: [-1.0],
         dietId: 0
     });
     const [error, setError] = useState<string>("");
