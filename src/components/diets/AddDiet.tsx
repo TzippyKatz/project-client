@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react"
-import { addDiet, getDiet } from "../services/diets.service";
-import { dietType } from "../types/diet.type";
-import { mealType } from "../types/meal.type"
+import { addDiet, getDiet } from "../../services/diets.service";
+import { dietType } from "../../types/diet.type";
+import { mealType } from "../../types/meal.type"
 import { useNavigate } from "react-router-dom";
 
 // את כל ענייני הגלילה והעלמת רשימת המטרות עם הלחיצה מצ'אט GPT
 
-export const DietPage = () => {
+export const AddDiet = () => {
     //ערך דיפולטיבי לסוג סעודה
     const defaultMealType = {
         id: 0,

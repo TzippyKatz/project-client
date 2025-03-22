@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getDiet, getDietByDietitianId } from '../services/diets.service';
-import { dietType } from "../types/diet.type";
-import { userType } from '../types/user.type';
+import { getDiet, getDietByDietitianId } from '../../services/diets.service';
+import { dietType } from "../../types/diet.type";
+import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
 import '../CSS/style.css'
-import { getUsers } from '../services/user.service';
+import { getUsers } from '../../services/user.service';
 
-export const DietsList = () => {
+export const GetDiets = () => {
     const [diets, setDiets] = useState<dietType[]>([])
     const [dietitianInput, setDietitianInput] = useState("")
     const [goalInput, setGoalInput] = useState("")

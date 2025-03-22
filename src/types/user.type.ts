@@ -1,4 +1,3 @@
-import { type } from "os";
 import { foodType } from "./food.type"
 
 export type userType = {
@@ -14,11 +13,6 @@ export type userType = {
     favoriteFood: Array<foodType>;
     weight: Array<Number>;
     dietId: number;
-}
-
-export type AuthUser = {
-    mail: string,
-    token: string
 }
 
 export type loginUserType = {

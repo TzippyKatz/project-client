@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { loginUser } from "../services/login.service";
+import { loginUser } from "../../services/login.service";
 import { data, useNavigate } from "react-router-dom";
 import { getSession, getUserRoleBySession } from "../auth/auth.utils";
 import { Eye, EyeOff } from "lucide-react";
 
-export const LoginPage = () => {
+export const Login = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string | null>(null)

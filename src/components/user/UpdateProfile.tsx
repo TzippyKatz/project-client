@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { updateUser, getUsersById } from "../services/user.service";
-import { foodType } from "../types/food.type";
+import { updateUser, getUsersById } from "../../services/user.service";
+import { foodType } from "../../types/food.type";
 import axios from "axios";
-import { userType } from "../types/user.type";
+import { userType } from "../../types/user.type";
 
 export const UpdateUserPage = () => {
     const [formData, setFormData] = useState<userType>({

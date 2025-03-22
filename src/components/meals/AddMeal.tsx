@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { addMeal } from "../services/meal.service";
-import { foodType } from "../types/food.type";
+import { addMeal } from "../../services/meal.service";
+import { foodType } from "../../types/food.type";
 import { useNavigate } from "react-router-dom";
 
 
-export const MealPage = () => {
+export const AddMeal = () => {
     const [formData, setFormData] = useState({
         id: 0,
         calories: 0,

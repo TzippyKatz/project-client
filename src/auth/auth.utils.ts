@@ -1,5 +1,5 @@
 import PATHS from "./../routes/paths";
-import { AuthUser } from "../types/user.type"
+import { AuthUser } from "../types/auth.types"
 import axios from "../utils/axios";
 
 export const setSession = (user: AuthUser) => {
