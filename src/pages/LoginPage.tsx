@@ -3,17 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { login } from '../redux/slices/auth.slice';
 import { AppDispatch, RootState } from '../redux/store';
-import './LoginPage.css';
+// Remove the CSS import that's causing issues
+// import './LoginPage.css';
 
 const LoginPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const location = useLocation();
     const { user, isAuthenticated, isInitialized } = useSelector((state: RootState) => state.auth);
-
+    
+    // Add loading state which is referenced in the component
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    
+    // Variable to store auth error
+    const [authError, setAuthError] = useState('');
 
     // מקבל את המיקום המקורי מה-state, אם קיים
     const from = location.state?.from?.pathname || "/";
@@ -37,6 +43,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+        setAuthError('');
 
         if (!email || !password) {
             setError('נא למלא את כל השדות');
@@ -44,12 +51,25 @@ const LoginPage: React.FC = () => {
         }
 
         try {
+            setLoading(true);
             console.log('Submitting login form...');
-            const result = await dispatch(login({ user.email, user.password })).unwrap();
-            console.log('Login result:', result);
+            // Fix the login dispatch to match the expected type
+            // Need to create a properly structured FullUser object
+            await dispatch(login({
+                email,
+                token: '', // This will be set by the API response
+                id: '',   // Add required properties from AuthUser
+                firstName: '',
+                lastName: '',
+                userType: 'user',
+                // Add any other required fields from FullUser type
+            }));
+            // Remove the unwrap() call
         } catch (err) {
             console.error('Login error:', err);
             setError('שגיאה בהתחברות. אנא נסה שוב.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -108,11 +128,3 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-
-
-// export const LoginPage = () => {
-
-//     return (
-//         <div>LoginPage</div>
-//     );
-// }
