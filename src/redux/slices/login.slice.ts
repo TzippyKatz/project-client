@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction, unwrapResult } from "@reduxjs/toolkit";
-import { FullUser, loginUserType } from "../../types/user.type";
-import { setSession } from "../../auth/auth.utils";
-import { loginUser } from "../../services/login.service";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { FullUser } from "../../types/user.type";
+import { jwtDecode, setSession } from "../../auth/auth.utils";
+import { loginUser } from "../../services/login.service"; // פונקציה ששולחת בקשה לשרת
 
 interface LoginState {
-    user: FullUser;
+    user: FullUser | null;
     isAuthenticated: boolean;
     loading: boolean;
     error: string | null;
@@ -12,73 +12,69 @@ interface LoginState {
 }
 
 const initialState: LoginState = {
-    user: null as any,
+    user: null,
     isAuthenticated: false,
     loading: false,
     error: null,
     shouldRegister: false
 };
 
-// יצירת פעולה אסינכרונית להתחברות
-export const login = createAsyncThunk<
-    FullUser, // סוג הנתון שמוחזר במקרה של הצלחה
-    { email: string; password: string }, // סוג הנתונים שהפעולה מקבלת
-    { rejectValue: string } >
-    ("login", async ({ email, password }, { rejectWithValue }) => {
-    try {
-        const response = await loginUser({email, password}); 
-        if (!response.token) {
-            return rejectWithValue("שגיאה בהתחברות - לא התקבל טוקן");
-        }
-        setSession({ mail: response.email, token: response.token }); // שמירת הסשן
-        return response; // מחזיר את המשתמש המחובר
-    } catch (error) {
-        if (error instanceof Error) {
+// יצירת async thunk לביצוע התחברות
+export const loginRequest = createAsyncThunk(
+    "login/loginRequest",
+    async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
+        try {
+            const response = await loginUser({ email, password }); // קריאה לשרת
+            return response; // מחזיר את הנתונים שיתקבלו ל-reducer
+        } catch (error: any) {
             return rejectWithValue(error.message);
         }
-        return rejectWithValue("שגיאה בהתחברות");
-    }    
-});
-// export const login = createAsyncThunk<FullUser, UserLoginType>(
-//     "auth/login",
-//     async ({ email, password }, { rejectWithValue }) => {
-//         try {
-//             const response = await loginUser(email, password);
-//             return response.data; // חייב להחזיר את כל השדות ש-FullUser מצפה להם
-//         } catch (error) {
-//             return rejectWithValue(error.response.data);
-//         }
-//     }
-// );
-
+    }
+);
 
 const loginSlice = createSlice({
     name: "login",
     initialState,
     reducers: {
+        logout: (state) => {
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("token");
+            state.user = null;
+            state.isAuthenticated = false;
+        },
         clearError: (state) => {
             state.error = null;
-        },
+        }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(login.pending, (state) => {
+            .addCase(loginRequest.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-                state.shouldRegister = false;
             })
-            .addCase(login.fulfilled, (state) => {
+            .addCase(loginRequest.fulfilled, (state, action: PayloadAction<{ token: string }>) => {
+                const decodedToken = jwtDecode(action.payload.token);
+                const user: FullUser = {
+                    ...decodedToken,
+                    id: decodedToken.userId,
+                    userName: decodedToken.userName,
+                    email: decodedToken.email,
+                    role: decodedToken.role || "user"
+                };
+                setSession({ email: user.email, token: action.payload.token });
+                state.user = user;
+                state.isAuthenticated = true;
                 state.loading = false;
                 state.error = null;
-                state.shouldRegister = false;
             })
-            .addCase(login.rejected, (state, action: PayloadAction<string | undefined>) => {
+            .addCase(loginRequest.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || "שגיאה לא צפויה";
-                state.shouldRegister = state.error.includes("משתמש לא קיים");
+                state.error = action.payload as string;
+                state.shouldRegister = (action.payload as string).includes("משתמש לא קיים");
+                state.isAuthenticated = false;
             });
-    },
+    }
 });
 
-export const { clearError } = loginSlice.actions;
+export const { logout, clearError } = loginSlice.actions;
 export default loginSlice.reducer;

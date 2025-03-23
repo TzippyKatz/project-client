@@ -6,21 +6,35 @@ import { getSession, removeSession, setSession } from "../auth/auth.utils"
 const serviceUrl = `${baseUrl}/UserLogin`
 
 export const loginUser = async (loginUser: loginUserType) => {
-    const response = await axios.post(serviceUrl, null, {
-        params: {
+    // const response = await axios.post(serviceUrl, null, {
+    //     params: {
+    //         userEmail: loginUser.email,
+    //         password: loginUser.password
+    //     }
+    // });
+    try {
+        const response = await axios.post(serviceUrl, {
             userEmail: loginUser.email,
             password: loginUser.password
-        }
-    });
-    const data = response.data
-    
-    console.log("data.token" + data.token)
-    console.log("data" + data)
-    console.log("loginUser.email" + loginUser.email)
-
-    if (data && loginUser.email){
-        setSession({ mail: loginUser.email, token: data })
+        });
+        
+        console.log("Login success:", response.data); // הדפסת תגובת השרת
+        return response.data;
+    } catch (error: any) {
+        console.error("Login failed:", error.response?.data || error.message); // הדפסת שגיאת השרת
+        throw error;
     }
 
-    return data
+    
+    // const data = response.data
+    
+    // console.log("data.token" + data.token)
+    // console.log("data" + data)
+    // console.log("loginUser.email" + loginUser.email)
+
+    // if (data && loginUser.email){
+    //     setSession({ email: loginUser.email, token: data,  })
+    // }
+
+    // return data
 }

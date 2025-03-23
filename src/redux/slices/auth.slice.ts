@@ -1,49 +1,51 @@
-// src/redux/slices/auth.slice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, AuthUser } from '../../types/auth.types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FullUser } from '../../types/user.type'
 
-const initialState: AuthState = {
+// טיפוס עבור ה- state
+interface AuthState {
+    isAuthenticated: boolean;
+    isInitialized: boolean;
+    user: FullUser | null;
+    loading: boolean;
+    error: string | null;
+}
+
+const initialAuthState: AuthState = {
     isAuthenticated: false,
+    isInitialized: false,
     user: null,
     loading: false,
     error: null,
 };
 
-interface LoginPayload {
-    token: string;
-    user: AuthUser;
-}
-
 const authSlice = createSlice({
-    name: 'auth',
-    initialState,
+    name: "auth",
+    initialState: initialAuthState,
     reducers: {
-        login(state, action: PayloadAction<LoginPayload>) {
-            const { token, user } = action.payload;
-            // שמירת הטוקן ב-localStorage
-            localStorage.setItem('token', token);
-            
+        initializeAuth: (state, action: PayloadAction<FullUser | null>) => {
+            state.user = action.payload;
+            state.isAuthenticated = !!action.payload;
+        },
+        loginSuccess: (state, action: PayloadAction<FullUser>) => {
             state.isAuthenticated = true;
-            state.user = user;
+            state.user = action.payload;
             state.loading = false;
             state.error = null;
         },
-        logout(state) {
-            // מחיקת הטוקן מה-localStorage
-            localStorage.removeItem('token');
-            
+        loginFailure: (state, action: PayloadAction<string | null>) => {
             state.isAuthenticated = false;
             state.user = null;
-        },
-        setLoading(state, action: PayloadAction<boolean>) {
-            state.loading = action.payload;
-        },
-        setError(state, action: PayloadAction<string | null>) {
-            state.error = action.payload;
             state.loading = false;
+            state.error = action.payload; // עכשיו זה מתאים ל- string | null
+        },
+        logout: (state) => {
+            state.isAuthenticated = false;
+            state.user = null;
+            state.loading = false;
+            state.error = null;
         },
     },
 });
 
-export const { login, logout, setLoading, setError } = authSlice.actions;
+export const { loginSuccess, loginFailure, logout, initializeAuth } = authSlice.actions;
 export default authSlice.reducer;

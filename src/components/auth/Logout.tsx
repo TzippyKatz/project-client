@@ -1,14 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/slices/auth.slice";
-import { AppDispatch } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../redux/store";
+import { logout } from "../../redux/slices/login.slice";
 
 const Logout: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-    window.location.reload(); // ריענון הדף לאחר יציאה
+    navigate('/login'); // ניתוב לדף התחברות לאחר יציאה
   };
 
   return <button onClick={handleLogout}>Logout</button>;

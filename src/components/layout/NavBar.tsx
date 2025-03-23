@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import logo_dietProject from '../../images/logo_dietProject.png';
 import './NavBar.css'
-import { logout } from '../../redux/slices/auth.slice';
+import { logout } from '../../redux/slices/login.slice';
 
 const Navbar: React.FC = () => {
     const { user } = useSelector((state: RootState) => state.auth); const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/challenges" className="nav-link" onClick={() => setMenuOpen(false)}>
+                        <Link to="/getDiets" className="nav-link" onClick={() => setMenuOpen(false)}>
                             דיאטות
                         </Link>
                     </li>
