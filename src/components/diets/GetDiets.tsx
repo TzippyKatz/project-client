@@ -3,7 +3,6 @@ import { getDiet, getDietByDietitianId } from '../../services/diets.service';
 import { dietType } from "../../types/diet.type";
 import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
-import '../../CSS/style.css'
 import { getUsers } from '../../services/user.service';
 
 interface GetDietsProps {

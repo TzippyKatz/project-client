@@ -1,9 +1,11 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
+import logo_dietProject from '../../images/logo_dietProject.png';
+import './NavBar.css'
 import { logout } from '../../redux/slices/auth.slice';
-import './Navbar.css';
 
 const Navbar: React.FC = () => {
     const { user } = useSelector((state: RootState) => state.auth); const dispatch = useDispatch();
@@ -23,7 +25,8 @@ const Navbar: React.FC = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    <span className="logo-text">Nutrition Monitoring</span>
+                    <img src={logo_dietProject} alt="NutriTrack Logo" className="logo-image" />
+                    <span className="logo-text">NutriTrack</span>
                 </Link>
 
                 <div className="menu-icon" onClick={toggleMenu}>
@@ -38,12 +41,12 @@ const Navbar: React.FC = () => {
                     </li>
                     <li className="nav-item">
                         <Link to="/challenges" className="nav-link" onClick={() => setMenuOpen(false)}>
-                            אתגרים
+                            דיאטות
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/workouts" className="nav-link" onClick={() => setMenuOpen(false)}>
-                            אימונים
+                        <Link to="/about" className="nav-link" onClick={() => setMenuOpen(false)}>
+                            אודות
                         </Link>
                     </li>
                     {user && (

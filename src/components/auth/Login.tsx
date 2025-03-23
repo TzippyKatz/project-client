@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
+import './Login.css';
 
-interface LoginProps {
-    onLogin: (email: string, password: string) => void;
-    loading: boolean;
-    error: string | null;
-}
-
-// export const Login: React.FC<LoginProps> = ({ onLogin, loading, error }) => {
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,15 +10,13 @@ export const Login = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // onLogin(email, password);
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
+        <div className="login-container">
+            <h1>התחברות</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email">אימייל:</label>
                 <input
                     type="email"
                     id="email"
@@ -32,39 +24,27 @@ export const Login = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <br /><br />
 
-                <label htmlFor="password">Password:</label>
-                <div style={{ position: "relative", display: "inline-block" }}>
+                <div className="password-container">
+                <label htmlFor="password">סיסמה:</label>
                     <input
                         type={showPassword ? "text" : "password"}
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        style={{ paddingRight: "30px" }}
                     />
                     <button
                         type="button"
+                        className="password-toggle"
                         onClick={() => setShowPassword(!showPassword)}
-                        style={{
-                            position: "absolute",
-                            right: "5px",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            background: "none",
-                            border: "none",
-                            cursor: "pointer"
-                        }}
                     >
                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                 </div>
-                <br /><br />
 
-                {/* <button type="submit" disabled={loading}> */}
-                    {/* {loading ? "מתחבר..." : "התחבר"} */}
-                {/* </button> */}
+                <button type="submit" className="login-btn">התחבר</button>
+                {/* <Link to="/forgot-password" className="forgot-password">שכחת סיסמה?</Link> */}
             </form>
         </div>
     );

@@ -1,12 +1,15 @@
-import { userType } from "./user.type";
+import { FullUser, userType } from "./user.type";
 
 export type AuthUser = {
-    mail: string,
-    token: string
+    id: string;
+    userName: string;
+    email: string;
+    role: string;
 }
 
 export interface AuthState {
-    isAuthenticated: boolean; // תיקון שגיאת הכתיב
-    isInitialized: boolean;
-    user: userType | null; // שימוש בטיפוס המדויק
+    isAuthenticated: boolean;
+    user: AuthUser | null;
+    loading: boolean;
+    error: string | null;
 }

@@ -1,4 +1,3 @@
-import PATHS from "./../routes/paths";
 import { AuthUser } from "../types/auth.types"
 import axios from "../utils/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -29,7 +28,7 @@ export const getUserRoleBySession = (token: string): string => {
 export const removeSession = () => {
     localStorage.removeItem('user');
     axios.defaults.headers.common.Authorization = undefined;
-    window.location.href = PATHS.login;
+    window.location.href = '/login';
 }
 
 export function jwtDecode(token: string) {

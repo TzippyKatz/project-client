@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
-import NavBar from './sections/nav/NavBar';
+import NavBar from './components/layout/NavBar';
 import { restoreSession } from './auth/auth.utils';
 import './App.css';
 
