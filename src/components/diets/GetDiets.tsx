@@ -3,14 +3,20 @@ import { getDiet, getDietByDietitianId } from '../../services/diets.service';
 import { dietType } from "../../types/diet.type";
 import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
-import '../CSS/style.css'
+import '../../CSS/style.css'
 import { getUsers } from '../../services/user.service';
 
-export const GetDiets = () => {
+interface GetDietsProps {
+    showCreateFilters: boolean;
+}
+
+// export const GetDiets = () => {
+export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
     const [diets, setDiets] = useState<dietType[]>([])
     const [dietitianInput, setDietitianInput] = useState("")
     const [goalInput, setGoalInput] = useState("")
     const [ageInput, setAgeInput] = useState("")
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [users, setUsers] = useState<userType[]>([])
 
     useEffect(() => {
@@ -38,50 +44,54 @@ export const GetDiets = () => {
         });
     });
 
+    const shouldShowFilters = () => isUserLoggedIn;
+
     return (
         <div className="container">
-            <div className="filters">
-                <FormControl variant="outlined" style={{ minWidth: 150 }}>
-                    <InputLabel id="dietitian-select-label" shrink>שם תזונאי</InputLabel>
-                    <Select
-                        labelId="dietitian-select-label"
-                        value={dietitianInput}
-                        onChange={(e) => setDietitianInput(e.target.value)}
-                    >
-                        <MenuItem value=""><em>בחר</em></MenuItem>
-                        {diets.map((diet) => (
-                            <MenuItem key={diet.id} value={diet.DietitianId}>
-                                {diet.DietitianId}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+            {shouldShowFilters() && (
+                <div className="filters">
+                    <FormControl variant="outlined" style={{ minWidth: 150 }}>
+                        <InputLabel id="dietitian-select-label" shrink>שם תזונאי</InputLabel>
+                        <Select
+                            labelId="dietitian-select-label"
+                            value={dietitianInput}
+                            onChange={(e) => setDietitianInput(e.target.value)}
+                        >
+                            <MenuItem value=""><em>בחר</em></MenuItem>
+                            {diets.map((diet) => (
+                                <MenuItem key={diet.id} value={diet.DietitianId}>
+                                    {diet.DietitianId}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-                <FormControl variant="outlined" style={{ minWidth: 150 }}>
-                    <InputLabel id="goal-select-label" shrink>מטרה דיאטה</InputLabel>
-                    <Select
-                        labelId="goal-select-label"
-                        value={goalInput}
-                        onChange={(e) => setGoalInput(e.target.value)}
-                    >
-                        <MenuItem value=""><em>בחר</em></MenuItem>
-                        {diets.map((diet) => (
-                            <MenuItem key={diet.id} value={diet.descGoal}>
-                                {diet.descGoal}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                    <FormControl variant="outlined" style={{ minWidth: 150 }}>
+                        <InputLabel id="goal-select-label" shrink>מטרה דיאטה</InputLabel>
+                        <Select
+                            labelId="goal-select-label"
+                            value={goalInput}
+                            onChange={(e) => setGoalInput(e.target.value)}
+                        >
+                            <MenuItem value=""><em>בחר</em></MenuItem>
+                            {diets.map((diet) => (
+                                <MenuItem key={diet.id} value={diet.descGoal}>
+                                    {diet.descGoal}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-                <TextField
-                    label="גיל"
-                    variant="outlined"
-                    type="number"
-                    value={ageInput}
-                    onChange={(e) => setAgeInput(e.target.value)}
-                    style={{ minWidth: 100 }}
-                />
-            </div>
+                    <TextField
+                        label="גיל"
+                        variant="outlined"
+                        type="number"
+                        value={ageInput}
+                        onChange={(e) => setAgeInput(e.target.value)}
+                        style={{ minWidth: 100 }}
+                    />
+                </div>
+            )}
 
             {/* רשימת דיאטות */}
             <div className="diets-container">

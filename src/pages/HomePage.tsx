@@ -1,9 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { GetDiets } from '../components/diets/GetDiets';
 import { RootState } from '../redux/store';
-// import PostList from '../components/posts/PostList';
-// import ChallengeList from '../components/challenges/ChallengeList';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
@@ -37,7 +36,7 @@ const HomePage: React.FC = () => {
                     {user ? (
                         <section className="challenges-section">
                             <h2>אודות</h2>
-                            <ChallengeList showCreateChallenge={false} />
+                            <GetDiets showCreateFilters={false} />
                         </section>
                     ) : (
                         <section className="login-prompt">

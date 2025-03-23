@@ -8,10 +8,11 @@ import LoginPage from '../pages/LoginPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { AddDiet } from '../components/diets/AddDiet'
 import { GetDiets } from '../components/diets/GetDiets'
+import { AuthState } from '../types/auth.types'
 
 
 const AppRoutes: React.FC = () => {
-    const { user } = useSelector((state: RootState) => state.auth);
+    const { user } = useSelector((state: RootState) => state.auth as AuthState);
 
     return (
         <Routes>
@@ -40,7 +41,7 @@ const AppRoutes: React.FC = () => {
 
             <Route path="/getDiet" element={
                 <PrivateRoute>
-                    <GetDiets />
+                    <GetDiets showCreateFilters={true} />
                 </PrivateRoute>
             } />
 

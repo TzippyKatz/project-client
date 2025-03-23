@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { updateUser, getUsersById } from "../../services/user.service";
+import { updateUser } from "../../services/user.service";
 import { foodType } from "../../types/food.type";
 import axios from "axios";
 import { userType } from "../../types/user.type";

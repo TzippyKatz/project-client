@@ -1,29 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
+import NavBar from './sections/nav/NavBar';
+import { restoreSession } from './auth/auth.utils';
 import './App.css';
-import PATHS from "./../src/routes/paths";
-import { HomePageeee } from './layouts/Home';
-import { LoginPage } from './layouts/Login';
-import { DietPage } from './layouts/Diet';
-import { RegisterPage } from './layouts/Register';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MealPage } from './layouts/Meal';
-import { DietsList } from './layouts/DietsList';
 
-function App() {
+const AppContent: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    // בדיקה אם יש טוקן בלוקל סטורג' בטעינה הראשונית
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(restoreSession(token));
+    }
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/diet" element={<DietPage />} />
-        <Route path="/meal" element={<MealPage />} />
-        <Route path="/dietsList" element={<DietsList />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
+      <div className="app">
+        <NavBar />
+        <AppRoutes />
+      </div>
     </BrowserRouter>
   );
-}
+};
 
-export default App;
 
+// export default App;
+export default AppContent;
 
 // alt + shift + f

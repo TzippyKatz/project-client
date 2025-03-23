@@ -1,21 +1,30 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { initializeAuth } from '../redux/slices/auth.slice';
-import { getSession, isValidToken } from '../auth/auth.utils';
+import { getSession, isValidToken, jwtDecode } from '../auth/auth.utils';
+import { getUserByEmail } from '../services/user.service';
 
 function AppInit() {
     const dispatch = useDispatch();
 
     useEffect(() => {
         // בודק אם יש משתמש מאוחסן ואם הטוקן שלו תקף
-        const user = getSession();
 
-        if (user && user.token && isValidToken(user.token)) {
-            // אם יש משתמש עם טוקן תקף, אתחל את המצב כמחובר
-            dispatch(initializeAuth(user));
+        // if (user && user.token && isValidToken(user.token)) {
+        let token = localStorage.getItem('user')
+        const decodedToken = jwtDecode(token || "null")
+        const email =  decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/email"]
+
+        if (token) {
+            getUserByEmail(email).then((fullUserData) => {
+                if (fullUserData) {
+                    dispatch(initializeAuth(fullUserData)); // אתחול עם הנתונים
+                } else {
+                    dispatch(initializeAuth(null)); // במקרה של שגיאה
+                }
+            });
         } else {
-            // אם אין משתמש או שהטוקן לא תקף, אתחל את המצב כלא מחובר
-            dispatch(initializeAuth(null));
+            dispatch(initializeAuth(null)); // אין טוקן
         }
     }, [dispatch]);
 

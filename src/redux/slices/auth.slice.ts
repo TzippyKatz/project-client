@@ -5,6 +5,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AuthUser, AuthState } from "../../types/auth.types";
 import { setSession, removeSession } from "../../auth/auth.utils";
+import { FullUser, userType } from "../../types/user.type";
 
 const initialState: AuthState = {
     user: null,
@@ -16,9 +17,14 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        login: (state, action: PayloadAction<AuthState>) => {
-            setSession(action.payload);
-            state.user = action.payload;
+        login: (state, action: PayloadAction<FullUser>) => {
+            setSession({
+                mail: action.payload.email, // התאמה בין email ל- mail
+                token: action.payload.token
+            });
+
+            const { mail, token, ...userWithoutAuth } = action.payload;
+            state.user = userWithoutAuth; // שמירת המשתמש ללא ה-token וה-mail
             state.isAuthenticated = true;
             state.isInitialized = true;
         },
@@ -27,7 +33,7 @@ const authSlice = createSlice({
             state.user = null;
             state.isAuthenticated = false;
         },
-        initializeAuth: (state, action: PayloadAction<AuthState | null>) => {
+        initializeAuth: (state, action: PayloadAction<userType | null>) => {
             state.user = action.payload;
             state.isAuthenticated = !!action.payload;
             state.isInitialized = true;
@@ -35,5 +41,5 @@ const authSlice = createSlice({
     }
 })
 
-export const { login, logout, initializeAuth } = authSlice.actions;
+export const { logout, login, initializeAuth } = authSlice.actions;
 export default authSlice.reducer;

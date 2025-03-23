@@ -1,3 +1,4 @@
+import { AuthUser } from "./auth.types";
 import { foodType } from "./food.type"
 
 export type userType = {
@@ -19,3 +20,5 @@ export type loginUserType = {
     email: string;
     password: string;
 }
+
+export type FullUser = AuthUser & userType;

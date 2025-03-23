@@ -33,7 +33,6 @@ export const addDiet = async (diet: Omit<dietType, 'id'>) => {
     formData.append("ageMaximum", String(diet.ageMaximum));
 
     const response = await axiosInstance.post(serviceUrl, formData, {
-
         headers: {
             Authorization: `Bearer ${token}` // הוספת הטוקן לכותרת
         }

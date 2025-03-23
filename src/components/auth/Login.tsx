@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../../services/login.service";
 import { data, useNavigate } from "react-router-dom";
-import { getSession, getUserRoleBySession } from "../auth/auth.utils";
+import { getSession, getUserRoleBySession } from "../../auth/auth.utils";
 import { Eye, EyeOff } from "lucide-react";
 
 export const Login = () => {
