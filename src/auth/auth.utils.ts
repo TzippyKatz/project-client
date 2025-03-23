@@ -19,9 +19,11 @@ export const getSession = (): AuthUser | null => {
     return user
 }
 
-export const getUserRoleBySession = (token: string): string | undefined => {
-    const decodedToken = jwtDecode(token);
-    return decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+// export const getUserRoleBySession = (token: string): string | undefined => {
+export const getUserRoleBySession = (token: string): string => {
+    let decodedToken = jwtDecode(token);
+    decodedToken = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    return decodedToken;
 };
 
 export const removeSession = () => {

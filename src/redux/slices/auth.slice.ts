@@ -9,7 +9,7 @@ import { FullUser, userType } from "../../types/user.type";
 
 const initialState: AuthState = {
     user: null,
-    isAuthenticated: false, // תיקון שגיאת הכתיב
+    isAuthenticated: false,
     isInitialized: false
 }
 

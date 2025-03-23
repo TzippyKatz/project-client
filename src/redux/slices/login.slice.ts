@@ -1,39 +1,56 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { FullUser } from "../../types/user.type";
-import { loginUserApi } from "../../api/auth.api";
+import { createSlice, createAsyncThunk, PayloadAction, unwrapResult } from "@reduxjs/toolkit";
+import { FullUser, loginUserType } from "../../types/user.type";
 import { setSession } from "../../auth/auth.utils";
 import { loginUser } from "../../services/login.service";
 
 interface LoginState {
+    user: FullUser;
+    isAuthenticated: boolean;
     loading: boolean;
     error: string | null;
     shouldRegister: boolean;
 }
 
 const initialState: LoginState = {
+    user: null as any,
+    isAuthenticated: false,
     loading: false,
     error: null,
-    shouldRegister: false,
+    shouldRegister: false
 };
 
 // יצירת פעולה אסינכרונית להתחברות
 export const login = createAsyncThunk<
     FullUser, // סוג הנתון שמוחזר במקרה של הצלחה
     { email: string; password: string }, // סוג הנתונים שהפעולה מקבלת
-    { rejectValue: string } // סוג השגיאה במקרה של כישלון
-    
->("login", async ({ email, password }, { rejectWithValue }) => {
+    { rejectValue: string } >
+    ("login", async ({ email, password }, { rejectWithValue }) => {
     try {
-        const response = await loginUser(email, password); // קריאה ל-API
+        const response = await loginUser({email, password}); 
         if (!response.token) {
             return rejectWithValue("שגיאה בהתחברות - לא התקבל טוקן");
         }
         setSession({ mail: response.email, token: response.token }); // שמירת הסשן
         return response; // מחזיר את המשתמש המחובר
     } catch (error) {
-        return rejectWithValue(error.message || "שגיאה בהתחברות");
-    }
+        if (error instanceof Error) {
+            return rejectWithValue(error.message);
+        }
+        return rejectWithValue("שגיאה בהתחברות");
+    }    
 });
+// export const login = createAsyncThunk<FullUser, UserLoginType>(
+//     "auth/login",
+//     async ({ email, password }, { rejectWithValue }) => {
+//         try {
+//             const response = await loginUser(email, password);
+//             return response.data; // חייב להחזיר את כל השדות ש-FullUser מצפה להם
+//         } catch (error) {
+//             return rejectWithValue(error.response.data);
+//         }
+//     }
+// );
+
 
 const loginSlice = createSlice({
     name: "login",

@@ -9,6 +9,7 @@ import { RegisterPage } from '../pages/RegisterPage'
 import { AddDiet } from '../components/diets/AddDiet'
 import { GetDiets } from '../components/diets/GetDiets'
 import { AuthState } from '../types/auth.types'
+import SendEmail from '../components/email/SendEmail'
 
 
 const AppRoutes: React.FC = () => {
@@ -18,6 +19,7 @@ const AppRoutes: React.FC = () => {
         <Routes>
             {/* ניתובים ציבוריים */}
             <Route path="/" element={<HomePage />} />
+            <Route path="/mail" element={<SendEmail />} />
             <Route path="/login" element={
                 user ? <Navigate to="/" replace /> : <LoginPage />
             } />

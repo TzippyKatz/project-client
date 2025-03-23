@@ -6,7 +6,7 @@ import { logout } from '../../redux/slices/auth.slice';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
-    const { user } = useSelector((state: RootState) => state.auth);    const dispatch = useDispatch();
+    const { user } = useSelector((state: RootState) => state.auth); const dispatch = useDispatch();
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 
