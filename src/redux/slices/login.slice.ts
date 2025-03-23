@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { FullUser } from "../../types/user.type";
-import { jwtDecode, setSession } from "../../auth/auth.utils";
+import { getSession, jwtDecode, setSession } from "../../auth/auth.utils";
 import { loginUser } from "../../services/login.service"; // פונקציה ששולחת בקשה לשרת
 
 interface LoginState {
@@ -21,16 +21,13 @@ const initialState: LoginState = {
 
 // יצירת async thunk לביצוע התחברות
 export const loginRequest = createAsyncThunk(
-    "login/loginRequest",
-    async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
-        try {
-            const response = await loginUser({ email, password }); // קריאה לשרת
-            return response; // מחזיר את הנתונים שיתקבלו ל-reducer
-        } catch (error: any) {
-            return rejectWithValue(error.message);
-        }
+    "login/request",
+    async ({ email, password }: { email: string; password: string }, thunkAPI) => {
+        const data = await loginUser({ email, password }); // כנראה שכבר JSON
+        return data;
     }
 );
+
 
 const loginSlice = createSlice({
     name: "login",
@@ -53,26 +50,47 @@ const loginSlice = createSlice({
                 state.error = null;
             })
             .addCase(loginRequest.fulfilled, (state, action: PayloadAction<{ token: string }>) => {
-                const decodedToken = jwtDecode(action.payload.token);
-                const user: FullUser = {
-                    ...decodedToken,
-                    id: decodedToken.userId,
-                    userName: decodedToken.userName,
-                    email: decodedToken.email,
-                    role: decodedToken.role || "user"
-                };
-                setSession({ email: user.email, token: action.payload.token });
-                state.user = user;
-                state.isAuthenticated = true;
-                state.loading = false;
-                state.error = null;
+                const tokenString = getSession();
+                if (tokenString != null) {
+                    const token = tokenString.token;
+                    console.log("getSession: " + token)
+                    const decodedToken = jwtDecode(token);
+
+                    const user: FullUser = {
+                        id: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/Id"],
+                        userName: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/userName"],
+                        email: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/email"],
+                        role: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || "user",
+                        token: token,
+                        password: "",
+                        firstName: "",
+                        lastName: "",
+                        phone: "",
+                        file: null,
+                        favoriteFood: [],
+                        weight: [] as any,
+                        dietId: 0
+                    };
+
+                    setSession({ email: user.email, token: token });
+                    state.user = user;
+                    state.isAuthenticated = true;
+                    state.loading = false;
+                    state.error = null;
+                }
             })
             .addCase(loginRequest.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload as string;
-                state.shouldRegister = (action.payload as string).includes("משתמש לא קיים");
+
+                const errorMessage = typeof action.payload === "string"
+                    ? action.payload
+                    : (action.payload as { message?: string }).message || "שגיאה כללית";
+
+                state.error = errorMessage;
+                state.shouldRegister = errorMessage.includes("משתמש לא קיים");
                 state.isAuthenticated = false;
             });
+
     }
 });
 

@@ -4,6 +4,7 @@ import { dietType } from "../../types/diet.type";
 import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
 import { getUsers } from '../../services/user.service';
+import './GetDiets.css'
 
 interface GetDietsProps {
     showCreateFilters: boolean;

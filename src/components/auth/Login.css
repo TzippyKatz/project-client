@@ -1,7 +1,6 @@
-/* Login.css */
 .login-container {
     width: 350px;
-    margin: 50px auto;
+    margin: 0 auto;
     padding: 20px;
     background: white;
     border-radius: 10px;
@@ -74,6 +73,11 @@ input {
     background: #45a049;
 }
 
+.login-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .forgot-password {
     margin-top: 10px;
     font-size: 14px;
@@ -84,4 +88,13 @@ input {
 
 .forgot-password:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
 }
