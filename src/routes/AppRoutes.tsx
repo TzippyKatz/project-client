@@ -10,10 +10,26 @@ import { GetDiets } from '../components/diets/GetDiets'
 import SendEmail from '../components/email/SendEmail'
 import AboutPage from '../pages/AboutPage'
 import { GetUsers } from '../components/user/GetUsers'
+import { UpdateUser } from '../components/user/UpdateProfile'
+import { foodType } from '../types/food.type'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
-
+    const userdefault = {
+        id: 0,
+        userName: "",
+        firstName: "",
+        lastName: "",
+        image: "",
+        email: "",
+        password: "",
+        role: "user",
+        phone: "",
+        file: null as File | null,
+        favoriteFood: [],
+        weight: [-1.0],
+        dietId: 0
+    }
     return (
         <Routes>
             {/* ניתובים ציבוריים */}
@@ -29,8 +45,10 @@ const AppRoutes: React.FC = () => {
             } />
 
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/getDiets" element={<GetDiets showCreateFilters={true}/>} />
+            <Route path="/getDiets" element={<GetDiets showCreateFilters={true} />} />
             <Route path="/getUsers" element={<GetUsers />} />
+
+            <UpdateUser showRole={false} user={null} />
 
             {/* דפי לוח בקרה לפי תפקיד */}
             {/* <Route path="/admin-dashboard" element={

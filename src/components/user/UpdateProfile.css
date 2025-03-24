@@ -1,4 +1,4 @@
-.register-container {
+.updateUser-container {
     width: 100%;
     max-width: 400px;
     margin: 50px auto;
@@ -7,27 +7,28 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    direction: rtl;
 }
 
-.register-container h1 {
+.updateUser-container h1 {
     color: #4CAF50;
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-.register-form {
+.updateUser-form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.register-form label {
+.updateUser-form label {
     font-weight: bold;
     margin-bottom: 5px;
     align-self: flex-start;
 }
 
-.register-form input {
+.updateUser-form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -36,7 +37,7 @@
     font-size: 1rem;
 }
 
-.register-form input:focus {
+.updateUser-form input:focus {
     outline: none;
     border-color: #4CAF50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
@@ -49,7 +50,7 @@
     align-self: flex-start;
 }
 
-.register-button, .register-form input[type="submit"] {
+.updateUser-button, .updateUser-form input[type="submit"] {
     width: 100%;
     padding: 10px;
     background: #4CAF50;
@@ -62,7 +63,7 @@
     transition: background 0.3s ease-in-out;
 }
 
-.register-button:hover {
+.updateUser-button:hover {
     background: #388E3C;
 }
 
@@ -74,26 +75,38 @@
 
 .password-container {
     position: relative;
-    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .password-container input {
-    width: 100%;
-    padding-right: 35px;
-    height: 40px;
-    font-size: 16px;
-    padding: 10px;
-    box-sizing: border-box;
+    flex: 1;
+    padding-right: 10px; /* כדי שהטקסט לא ייכנס לתוך הכפתור */
+    padding-left: 35px;  /* כדי לפנות מקום לאייקון */
 }
 
 .password-toggle {
     position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+    left: 10px; /* מזיז את הכפתור שמאלה */
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 18px;
-    color: gray;
+    display: flex;
+    align-items: center;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+}
+
+select:focus {
+    outline: none;
+    border-color: #2E7D32;
+    box-shadow: 0px 0px 5px rgba(76, 175, 80, 0.7);
 }

@@ -72,6 +72,7 @@ export const getDietByAge = async (age: number) => {
 }
 
 export const getDietitianNameByDietitianId = async (dietiainId: number) => {
+    console.log(dietiainId)
     const response = await axios.get(`${serviceUrl}/DietitianName/${dietiainId}`)
     const data = await response.data
     return data

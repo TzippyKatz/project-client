@@ -82,16 +82,16 @@ const loginSlice = createSlice({
             })
             .addCase(loginRequest.rejected, (state, action) => {
                 state.loading = false;
-
-                const errorMessage = typeof action.payload === "string"
-                    ? action.payload
-                    : (action.payload as { message?: string }).message || "שגיאה כללית";
-
-                state.error = errorMessage;
+            
+                const errorMessage =
+                    action.payload && typeof action.payload === "object" && "message" in action.payload
+                        ? (action.payload as { message?: string }).message ?? "שגיאה כללית"
+                        : "שגיאה כללית";
+            
+                state.error = errorMessage; // Now guaranteed to be a string
                 state.shouldRegister = errorMessage.includes("משתמש לא קיים");
                 state.isAuthenticated = false;
-            });
-
+            });    
     }
 });
 

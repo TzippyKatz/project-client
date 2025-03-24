@@ -63,7 +63,7 @@
 }
 
 /* עיצוב לכפתור "עדכן תפקיד" */
-.update-button {
+.update-button, .delete-button {
     background-color: #28a745;
     color: white;
     font-size: 16px;
@@ -72,9 +72,10 @@
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    margin: 5px; /* מרחק בין הכפתורים */
 }
 
-.update-button:hover {
+.update-button:hover, .delete-button:hover{
     background-color: #218838;
 }
 
