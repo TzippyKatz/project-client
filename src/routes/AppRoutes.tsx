@@ -9,6 +9,7 @@ import { AddDiet } from '../components/diets/AddDiet'
 import { GetDiets } from '../components/diets/GetDiets'
 import SendEmail from '../components/email/SendEmail'
 import AboutPage from '../pages/AboutPage'
+import { GetUsers } from '../components/user/GetUsers'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -29,6 +30,7 @@ const AppRoutes: React.FC = () => {
 
             <Route path="/about" element={<AboutPage />} />
             <Route path="/getDiets" element={<GetDiets showCreateFilters={true}/>} />
+            <Route path="/getUsers" element={<GetUsers />} />
 
             {/* דפי לוח בקרה לפי תפקיד */}
             {/* <Route path="/admin-dashboard" element={

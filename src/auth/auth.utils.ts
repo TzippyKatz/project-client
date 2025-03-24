@@ -74,7 +74,7 @@ export const restoreSession = createAsyncThunk(
             //המזהה משתמש שלי לפי מייל
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            const userId = parseInt(decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/email"]);
+            const userId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
 
             // יצירת אובייקט משתמש מהנתונים המוצפנים בטוקן
             const user: userType = {
@@ -82,9 +82,10 @@ export const restoreSession = createAsyncThunk(
                 password: '', // הסיסמה לא מגיעה מהטוקן
                 role: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || '',
                 userName: '', // אין מידע בטוקן, נשאר ריק
-                firstName: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/firstName"]?.split(' ')[0] || '',
-                lastName: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/lastName"]?.split(' ')[1] || '',
-                email: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/email"] || '',
+                firstName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]?.split(' ')[0] || '',
+                lastName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]?.split(' ')[1] || '',
+                image: "",
+                email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"] || '',
                 phone: '', // אין מידע בטוקן
                 file: null, // אין מידע בטוקן
                 favoriteFood: [], // אין מידע בטוקן

@@ -8,6 +8,8 @@ export type userType = {
     userName: string;
     firstName: string;
     lastName: string;
+    ////
+    image: string;
     email: string;
     phone: string;
     file: File | null;
