@@ -5,7 +5,15 @@ import axiosInstance, { baseUrl } from "./axios"
 const serviceUrl = `${baseUrl}/User`
 
 export const getUsers = async () => {
-  const response = await axios.get(serviceUrl)
+  const userData = localStorage.getItem("user")
+  const user = userData ? JSON.parse(userData) : null;
+  const token = user?.token || null;
+  console.log("token: "+ token)
+  const response = await axios.get(serviceUrl, {
+    headers: {
+      Authorization: `Bearer ${token}` // הוספת הטוקן לכותרת
+    }
+  })
   const data = await response.data
   return data
 }
@@ -31,6 +39,7 @@ export const addUser = async (user: Omit<userType, 'id'>) => {
   formData.append('UserName', user.userName);
   formData.append('FirstName', user.firstName);
   formData.append('LastName', user.lastName);
+  formData.append('Image', user.image);
   formData.append('Email', user.email);
   formData.append('Phone', user.phone);
   // שליחת משקלים כמחרוזת JSON
@@ -60,24 +69,6 @@ export const addUser = async (user: Omit<userType, 'id'>) => {
   return data;
 
 };
-//   export const addUser = async (user: Omit<userType, 'id'>) => {  
-//     console.log("Sending request to:", serviceUrl);
-
-//     try {
-//         const response = await axiosInstance.post(serviceUrl, user, {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         });
-
-//         console.log("Response:", response.data);
-//         return response.data;
-//     } catch (error) {
-//         console.error("Error:", error);
-//         throw error;
-//     }
-// };
-
 
 export const deleteUser = async (id: number) => {
   const response = await axios.delete(`${serviceUrl}/${id}`)

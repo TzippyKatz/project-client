@@ -69,7 +69,8 @@ const loginSlice = createSlice({
                         file: null,
                         favoriteFood: [],
                         weight: [] as any,
-                        dietId: 0
+                        dietId: 0,
+                        image: ""
                     };
 
                     setSession({ email: user.email, token: token });

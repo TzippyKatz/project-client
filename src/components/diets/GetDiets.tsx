@@ -3,7 +3,6 @@ import { getDiet, getDietByDietitianId, getDietitianNameByDietitianId } from '..
 import { dietType } from "../../types/diet.type";
 import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
-import { getUsers } from '../../services/user.service';
 import './GetDiets.css'
 
 interface GetDietsProps {
@@ -18,8 +17,6 @@ export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
     const [dietitianInput, setDietitianInput] = useState("")
     const [goalInput, setGoalInput] = useState("")
     const [ageInput, setAgeInput] = useState("")
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-    const [users, setUsers] = useState<userType[]>([])
     const [dietitianNames, setDietitianNames] = useState<{ [key: number]: string }>({});
 
     useEffect(() => {

@@ -10,6 +10,7 @@ export const Register = () => {
         userName: "",
         firstName: "",
         lastName: "",
+        image: "",
         email: "",
         password: "",
         role: "user",
