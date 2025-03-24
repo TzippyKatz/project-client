@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { addUser } from "../../services/user.service";
-import { foodType } from "../../types/food.type";
 import { Eye, EyeOff } from "lucide-react";
 import './Register.css'
 
@@ -29,7 +28,6 @@ export const Register = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, file: e.target.files ? e.target.files[0] : null });
     };
@@ -49,22 +47,27 @@ export const Register = () => {
         e.preventDefault();
         setSuccessMessage(null);
 
-        if (!validateForm()) return;
+        if (!validateForm()) {
+            alert("יש לתקן את השדות לפני ההגשה");
+            return;
+        }
 
         try {
             console.log("Form Data:", formData);
             const response = await addUser(formData);
             console.log("Success:", response.data);
             setSuccessMessage("המשתמש נרשם בהצלחה!");
+            alert("המשתמש נרשם בהצלחה!");
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.error(error.response?.data);
+                alert(" נתקבלה שגיאה בתקשורת עם השרת. אנא נסה שוב מאוחר יותר.");
             } else {
                 console.error("Unexpected error:", error);
+                alert("אירעה שגיאה בלתי צפויה. אנא נסה שוב.");
             }
         }
     };
-
 
     return (
         <div className="register-container">
