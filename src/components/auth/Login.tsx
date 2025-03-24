@@ -82,6 +82,7 @@ export const Login = () => {
             const user = resultAction.payload;
             if (user && getUserRoleBySession(user)) {
                 console.log("role: " + user.role)
+                console.log("role: " + getUserRoleBySession(user))
                 routeUserByRole(getUserRoleBySession(user));
             } else {
                 navigate('/');
@@ -96,7 +97,7 @@ export const Login = () => {
                 navigate('/admin-dashboard');
                 break;
             case 'nutritionist':
-                navigate('/about');
+                navigate('/getDiets');
                 break;
             case 'user':
                 navigate('/user-dashboard');

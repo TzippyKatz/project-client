@@ -28,7 +28,7 @@ const AppRoutes: React.FC = () => {
             } />
 
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/getDiets" element={<GetDiets showCreateFilters={false}/>} />
+            <Route path="/getDiets" element={<GetDiets showCreateFilters={true}/>} />
 
             {/* דפי לוח בקרה לפי תפקיד */}
             {/* <Route path="/admin-dashboard" element={

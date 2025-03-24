@@ -25,7 +25,7 @@ export const addDiet = async (diet: Omit<dietType, 'id'>) => {
     const token = user?.token || null;
     const formData = new FormData();
 
-    formData.append("DietitianId", String(diet.DietitianId));
+    formData.append("DietitianId", String(diet.dietitianId));
     formData.append("Meals", JSON.stringify(diet.meals));  // אם זה מערך, צריך JSON
     formData.append("DescGoal", diet.descGoal);
     formData.append("Rate", String(diet.rate));
@@ -59,14 +59,20 @@ export const getDietByDietitianId = async (dietitianId: number) => {
     return data
 }
 
-export const getDietByGoal = async (goal:string) => {
+export const getDietByGoal = async (goal: string) => {
     const response = await axios.get(`${serviceUrl}/goal/${goal}`)
     const data = await response.data
     return data
 }
 
-export const getDietByAge = async (age:number) => {
+export const getDietByAge = async (age: number) => {
     const response = await axios.get(`${serviceUrl}/age/${age}`)
+    const data = await response.data
+    return data
+}
+
+export const getDietitianNameByDietitianId = async (dietiainId: number) => {
+    const response = await axios.get(`${serviceUrl}/DietitianName/${dietiainId}`)
     const data = await response.data
     return data
 }
