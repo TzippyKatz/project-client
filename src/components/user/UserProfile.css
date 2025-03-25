@@ -1,6 +1,6 @@
 .userProfile-container {
     width: 90%;
-    max-width: 800px;
+    max-width: 600px;
     margin: 50px auto;
     padding: 20px;
     background: #fff;
@@ -8,49 +8,28 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     direction: rtl;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .userProfile-container h1 {
-    color: #2E7D32;
+    color: #4CAF50;
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-/* מיכל ראשי לחלוקה */
-.main-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 800px;
-}
-
-/* עיצוב הגרף */
 .chart-container {
-    flex: 1;
-    max-width: 50%;
-    padding: 20px;
-    background: #F1F8E9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* מיכל הדיאטה */
 .diet-container {
-    flex: 1;
-    max-width: 50%;
-    padding: 20px;
     background: #f9f9f9;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: right;
 }
 
 .diet-container h2 {
-    color: #2E7D32;
+    color: #4CAF50;
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
@@ -66,55 +45,8 @@
 }
 
 .diet-container li {
-    background: #E8F5E9;
+    background: #e8f5e9;
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
-    border-right: 4px solid #2E7D32;
-}
-
-/* עיצוב טופס הוספת משקל */
-.add-weight-form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.add-weight-form input {
-    width: 100px;
-    padding: 5px;
-    border: 1px solid #A5D6A7;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.add-weight-form button {
-    margin-top: 10px;
-    padding: 6px 12px;
-    background: #388E3C;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s;
-}
-
-.add-weight-form button:hover {
-    background: #2E7D32;
-}
-
-/* רספונסיביות */
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .chart-container, .diet-container {
-        max-width: 100%;
-        margin-bottom: 20px;
-    }
 }

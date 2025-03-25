@@ -26,8 +26,6 @@ export const UserProfile = () => {
                 setUserId(userId)
                 const user = await getUserById(userId);
                 setUserName(user.userName)
-                console.log(JSON.stringify(user, null, 2))
-                console.log(user.weight)
                 const weights = user.weight.split(",").map((w: string) => parseFloat(w));
                 const weightsForGraph = weights.map((weight: number, index: number) => ({
                     index: index + 1,
@@ -36,9 +34,7 @@ export const UserProfile = () => {
                 setWeightArr(weightsForGraph)
 
                 const diet = await getDietById(user.dietId)
-                console.log("diet: " + diet)
                 setDietProfile(diet)
-                console.log("dietProfile: " + dietProfile)
             } else {
                 console.error("המתשמש לא מחובר למערכת - התחבר מחדש");
             }
