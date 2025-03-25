@@ -15,6 +15,8 @@ import { foodType } from '../types/food.type'
 import { jwtDecode } from '../auth/auth.utils'
 import { getUserById } from '../services/user.service'
 import { UserProfile } from '../components/user/UserProfile'
+import { AddMeal } from '../components/meals/AddMeal'
+import { MealPage } from '../pages/MealPage'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -70,6 +72,9 @@ const AppRoutes: React.FC = () => {
             <Route path="/getDiets" element={<GetDiets showCreateFilters={true} />} />
             <Route path="/getUsers" element={<GetUsers />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/addDiet" element={<AddDiet />} />
+            {/* <Route path="/addMeal" element={<AddMeal />} /> */}
+            <Route path="/meal" element={<MealPage />} />
 
             {/* <UpdateUser showRole={false} user={null} /> */}
             {/* החלפתי בגלל שזה לא נתן JSX בתןך Route */}

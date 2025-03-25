@@ -11,4 +11,5 @@ export type mealType = {
     sodium: number;
     foods: Array<foodType>;
     typeMealId: number;
+    dietId: number;
 }

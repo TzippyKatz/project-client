@@ -2,14 +2,8 @@ import { useState } from "react";
 import { addMeal } from "../../services/meal.service";
 import { foodType } from "../../types/food.type";
 
-interface AddMealModalProps {
-    show: boolean;
-    onClose: () => void;
-}
-
-export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
+export const AddMeal = () => {
     const [formData, setFormData] = useState({
-        id: 0,
         calories: 0,
         carbohydrates: 0,
         proteins: 0,
@@ -17,8 +11,10 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
         sugars: 0,
         sodium: 0,
         foods: [] as foodType[],
-        typeMealId: 0
+        typeMealId: 0,
+        dietId: 0
     });
+
     const [error, setError] = useState<string>("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +27,6 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
 
     const handleFoodsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-    
         const foodItems: foodType[] = value.split(",").map((food, index) => ({
             id: index + 1,
             name: food.trim(),
@@ -43,7 +38,7 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
             sodium: 0,
             imageUrl: ""
         }));
-    
+
         setFormData(prevState => ({
             ...prevState,
             foods: foodItems
@@ -62,45 +57,32 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
         console.log(response);
     };
 
-    if (!show) return null; // אם show הוא false, לא נראה את ה-Modal
-
     return (
-        <div style={modalOverlayStyle}>
-            <div style={modalStyle}>
-                <h2>הוספת ארוחה</h2>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                <form onSubmit={handleSubmit}>
-                    <label>קלוריות:</label>
-                    <input type="number" name="calories" value={formData.calories} onChange={handleChange} />
+        <div style={{ padding: "20px" }}>
+            <h2>הוספת ארוחה</h2>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            <form onSubmit={handleSubmit}>
+                <label>קלוריות:</label>
+                <input type="number" name="calories" value={formData.calories} onChange={handleChange} />
 
-                    <label>פחמימות:</label>
-                    <input type="number" name="carbohydrates" value={formData.carbohydrates} onChange={handleChange} />
+                <label>פחמימות:</label>
+                <input type="number" name="carbohydrates" value={formData.carbohydrates} onChange={handleChange} />
 
-                    <label>חלבונים:</label>
-                    <input type="number" name="proteins" value={formData.proteins} onChange={handleChange} />
+                <label>חלבונים:</label>
+                <input type="number" name="proteins" value={formData.proteins} onChange={handleChange} />
 
-                    <label>כולסטרול:</label>
-                    <input type="number" name="cholesterol" value={formData.cholesterol} onChange={handleChange} />
+                <label>מזונות (מופרדים בפסיק):</label>
+                <input type="text" name="foods" onChange={handleFoodsChange} />
 
-                    <label>סוכרים:</label>
-                    <input type="number" name="sugars" value={formData.sugars} onChange={handleChange} />
+                <label>סוג הארוחה:</label>
+                <input type="number" name="typeMealId" value={formData.typeMealId} onChange={handleChange} />
 
-                    <label>נתרן:</label>
-                    <input type="number" name="sodium" value={formData.sodium} onChange={handleChange} />
-
-                    <label>מזונות (מופרדים בפסיק):</label>
-                    <input type="text" name="foods" onChange={handleFoodsChange} />
-
-                    <label>סוג הארוחה:</label>
-                    <input type="number" name="typeMealId" value={formData.typeMealId} onChange={handleChange} />
-
-                    <button type="submit">הוסף ארוחה</button>
-                    <button type="button" onClick={onClose}>סגור</button>
-                </form>
-            </div>
+                <button type="submit">הוסף ארוחה</button>
+            </form>
         </div>
     );
 };
+
 
 // סטיילים עבור ה-Modal
 const modalOverlayStyle: React.CSSProperties = {

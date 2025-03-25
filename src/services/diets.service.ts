@@ -11,9 +11,9 @@ export const getDiet = async () => {
     return data
 }
 
-export const getDietById = async (diet: Omit<dietType, 'id'>) => {
+export const getDietById = async (id: number) => {
     // export const getDietById = async (diet: dietType) =>{
-    const response = await axios.get(serviceUrl)
+    const response = await axios.get(`${serviceUrl}/${id}`)
     const data = await response.data
     return data
 }
