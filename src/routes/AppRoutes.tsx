@@ -48,8 +48,9 @@ const AppRoutes: React.FC = () => {
             <Route path="/getDiets" element={<GetDiets showCreateFilters={true} />} />
             <Route path="/getUsers" element={<GetUsers />} />
 
-            <UpdateUser showRole={false} user={null} />
-
+            {/* <UpdateUser showRole={false} user={null} /> */}
+            {/* החלפתי בגלל שזה לא נתן JSX בתןך Route */}
+            <Route path="/update-user" element={<UpdateUser showRole={false} user={null} />} />
             {/* דפי לוח בקרה לפי תפקיד */}
             {/* <Route path="/admin-dashboard" element={
                 <PrivateRoute requiredRoles={['admin']}>
