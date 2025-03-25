@@ -5,6 +5,7 @@ import { getUserById, updateUser } from '../../services/user.service';
 import { data } from 'react-router-dom';
 import { dietType } from '../../types/diet.type';
 import { getDietById } from '../../services/diets.service';
+import './UserProfile.css'
 
 
 export const UserProfile = () => {
@@ -57,16 +58,24 @@ export const UserProfile = () => {
     };
 
     const handleAddWeight = async () => {
-        if (!newWeight.trim()) return
+        if (!newWeight.trim()) return;
+        
+        const weightValue = parseFloat(newWeight);
+        if (isNaN(weightValue) || weightValue <= 0) {
+            console.error("משקל חייב להיות מספר חיובי גדול מ-0");
+            return;
+        }
+    
         if (userId !== null) {
-            const user = await getUserById(userId)
-            const updatedWeights = user.weight ? `${user.weight},${newWeight}` : newWeight
+            const user = await getUserById(userId);
+            const updatedWeights = user.weight ? `${user.weight},${newWeight}` : newWeight;
             const updatedUser = { ...user, weight: updatedWeights };
-            await updateUser(updatedUser)
-            updateWeightGraph(updatedWeights)
-            setNewWeight('')
+            await updateUser(updatedUser);
+            updateWeightGraph(updatedWeights);
+            setNewWeight('');
         }
     };
+        
 
     return (
         <div className="userProfile-container">
