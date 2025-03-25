@@ -7,7 +7,7 @@ import { data } from 'react-router-dom';
 
 export const UserProfile = () => {
 
-    const[weightArr, setWeightArr] = useState<{ x: number, y: number }[]>([])
+    const[weightArr, setWeightArr] = useState<{ index: number, weight: number }[]>([])
 
     useEffect(() => {
         const fetchWeights = async () => {
@@ -20,25 +20,31 @@ export const UserProfile = () => {
                 console.log(JSON.stringify(user, null, 2))
                 console.log(user.weight)
                 const weights = user.weight.split(",").map((w: string) => parseFloat(w));
+                console.log(weights)
                 const weightsForGraph = weights.map((weight: number, index: number) => ({
-                    x: index + 1,
-                    y: weight
+                    index: index + 1,
+                    weight: weight
                 }));
+                console.log(weightsForGraph)
                 setWeightArr(weightsForGraph)
+                // console.log("weightArr " + weightArr)
             } else {
                 console.error("המתשמש לא מחובר למערכת - התחבר מחדש");
             }
         };
         fetchWeights()
     }, []);
-
+    useEffect(() => {
+        console.table(weightArr);
+    }, [weightArr]); // יתבצע הדפסה **רק כאשר weightArr מתעדכן**
+    
 
     return (
         <div>פרופיל אישי
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={weightArr}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
+                    <XAxis dataKey="index" />
                     <YAxis domain={['auto', 'auto']} />
                     <Tooltip />
                     <Line type="monotone" dataKey="weight" stroke="#8884d8" strokeWidth={2} />
