@@ -34,11 +34,18 @@ export const Register = () => {
 
     const validateForm = () => {
         let newErrors: { [key: string]: string } = {};
+        
         if (!formData.userName.trim()) newErrors.userName = "שם משתמש הוא שדה חובה";
         if (!formData.firstName.trim()) newErrors.firstName = "שם פרטי הוא שדה חובה";
         if (!formData.lastName.trim()) newErrors.lastName = "שם משפחה הוא שדה חובה";
         if (!formData.email.trim()) newErrors.email = "אימייל הוא שדה חובה";
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "אימייל לא תקין";
+        
         if (!formData.password.trim()) newErrors.password = "סיסמה היא שדה חובה";
+        else if (formData.password.length < 4) newErrors.password = "סיסמה חייבת להכיל לפחות 4 תווים";
+        
+        if (formData.phone && !/^\d{10}$/.test(formData.phone)) newErrors.phone = "מספר טלפון חייב להכיל 10 ספרות";
+        
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -61,7 +68,7 @@ export const Register = () => {
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.error(error.response?.data);
-                alert(" נתקבלה שגיאה בתקשורת עם השרת. אנא נסה שוב מאוחר יותר.");
+                alert("נתקבלה שגיאה בתקשורת עם השרת. אנא נסה שוב מאוחר יותר.");
             } else {
                 console.error("Unexpected error:", error);
                 alert("אירעה שגיאה בלתי צפויה. אנא נסה שוב.");
@@ -100,6 +107,7 @@ export const Register = () => {
 
                 <label htmlFor="phone">טלפון:</label>
                 <input type="text" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
+                {errors.phone && <span style={{ color: "red" }}>{errors.phone}</span>}
 
                 <label htmlFor="file">תמונת פרופיל:</label>
                 <input type="file" id="file" name="file" onChange={handleFileChange} accept="file/*" />
