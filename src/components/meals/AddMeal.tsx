@@ -23,15 +23,25 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        const numericValue = Number(value);
+        if (numericValue < 0) {
+            setError("יש להזין ערכים חיוביים בלבד.");
+            return;
+        }
+        setError("");
         setFormData(prevState => ({
             ...prevState,
-            [name]: Number(value)
+            [name]: numericValue
         }));
     };
 
     const handleFoodsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-    
+        if (!value.trim()) {
+            setError("יש להזין לפחות מזון אחד.");
+            return;
+        }
+        setError("");
         const foodItems: foodType[] = value.split(",").map((food, index) => ({
             id: index + 1,
             name: food.trim(),
@@ -43,7 +53,7 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
             sodium: 0,
             imageUrl: ""
         }));
-    
+
         setFormData(prevState => ({
             ...prevState,
             foods: foodItems
@@ -52,8 +62,16 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (formData.calories <= 0 || formData.proteins < 0) {
-            setError("יש להזין ערכים תקינים.");
+        if (formData.calories <= 0 || formData.proteins < 0 || formData.carbohydrates < 0 || formData.sugars < 0 || formData.sodium < 0 || formData.cholesterol < 0) {
+            setError("כל הערכים חייבים להיות מספרים חיוביים.");
+            return;
+        }
+        if (formData.foods.length === 0) {
+            setError("נא להזין לפחות מזון אחד.");
+            return;
+        }
+        if (formData.typeMealId <= 0) {
+            setError("נא לבחור סוג ארוחה תקין.");
             return;
         }
         setError("");
@@ -62,7 +80,7 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
         console.log(response);
     };
 
-    if (!show) return null; // אם show הוא false, לא נראה את ה-Modal
+    if (!show) return null;
 
     return (
         <div style={modalOverlayStyle}>
@@ -102,7 +120,6 @@ export const AddMealModal = ({ show, onClose }: AddMealModalProps) => {
     );
 };
 
-// סטיילים עבור ה-Modal
 const modalOverlayStyle: React.CSSProperties = {
     position: "fixed",
     top: 0,
