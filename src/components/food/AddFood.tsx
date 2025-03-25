@@ -26,10 +26,24 @@ export const AddFood = () => {
         }));
     };
 
+    const validateForm = () => {
+        if (!formData.name.trim()) {
+            return "יש להזין שם מזון.";
+        }
+        if (formData.calories <= 0) {
+            return "כמות הקלוריות חייבת להיות מספר חיובי.";
+        }
+        if (formData.carbohydrates < 0 || formData.proteins < 0 || formData.cholesterol < 0 || formData.sugars < 0 || formData.sodium < 0) {
+            return "כל הערכים התזונתיים חייבים להיות מספרים חיוביים או אפס.";
+        }
+        return "";
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!formData.name || formData.calories <= 0) {
-            setError("יש להזין שם וכמות קלוריות תקינה.");
+        const validationError = validateForm();
+        if (validationError) {
+            setError(validationError);
             return;
         }
         setError("");
@@ -65,8 +79,10 @@ export const AddFood = () => {
                 <label>נתרן:</label>
                 <input type="number" name="sodium" value={formData.sodium} onChange={handleChange} />
 
-                <label>תמונה (קישור):</label>
-                <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} />
+                <label>תמונה (קובץ):</label>
+                <input type="file" name="imageFile" onChange={handleChange} />
+                {/* <label>תמונה (קישור):</label>
+                <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} /> */}
 
                 <label>סוג מזון (Parve, Meaty, Dairy):</label>
                 <input type="text" name="pmd" onChange={handleChange} />
