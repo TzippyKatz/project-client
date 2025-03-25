@@ -8,7 +8,7 @@ export const getUsers = async () => {
   const userData = localStorage.getItem("user")
   const user = userData ? JSON.parse(userData) : null;
   const token = user?.token || null;
-  console.log("token: "+ token)
+  console.log("token: " + token)
   const response = await axios.get(serviceUrl, {
     headers: {
       Authorization: `Bearer ${token}` // הוספת הטוקן לכותרת
@@ -77,7 +77,38 @@ export const deleteUser = async (id: number) => {
 }
 
 export const updateUser = async (user: userType) => {
-  const response = await axios.put(`${serviceUrl}/${user.id}`, user)
+  const userId = user.id
+  const { id, ...userData } = user; // מסירים את ה-ID
+  const formData = new FormData();
+
+  formData.append('Password', user.password);
+  formData.append('Role', user.role);
+  formData.append('UserName', user.userName);
+  formData.append('FirstName', user.firstName);
+  formData.append('LastName', user.lastName);
+  formData.append('Image', user.image);
+  formData.append('Email', user.email);
+  formData.append('Phone', user.phone);
+
+  if (user.weight && user.weight.length > 0) {
+    formData.append('Weight', user.weight as any);
+    console.log("weight: " + user.weight)
+  } else {
+    formData.append('Weight', [-1.0] as any); // ערך ברירת מחדל
+  }
+  // שליחת מאכלים אהובים כמחרוזת JSON
+  formData.append('FavoriteFood', JSON.stringify(user.favoriteFood));
+
+  // שליחת הקובץ
+  if (user.file) {
+    formData.append('file', user.file);
+  }
+  const response = await axios.put(`${serviceUrl}/${userId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data", // חשוב כדי לשלוח קובץ
+    },
+  });
+
   const data = response.data
   return data
 }

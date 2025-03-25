@@ -45,7 +45,7 @@ export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
                         namesMap[diet.dietitianId] = name;
                     } catch (error) {
                         console.error("Error fetching dietitian name:", error);
-                        namesMap[diet.dietitianId] = "לא נמצא"; // ערך ברירת מחדל
+                        // namesMap[diet.dietitianId] = "לא נמצא"; // ערך ברירת מחדל
                     }
                 }
             }

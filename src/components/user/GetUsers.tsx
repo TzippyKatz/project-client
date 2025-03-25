@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUsers } from '../../services/user.service';
+import { getUsers, deleteUser } from '../../services/user.service';
 import { userType } from '../../types/user.type';
 import default_profile from '../../images/default_profile.png'
 import './GetUsers.css'
@@ -13,6 +13,7 @@ export const GetUsers: React.FC = () => {
     const [inputSearch, setInputSearch] = useState("")
     const [selectedUser, setSelectedUser] = useState<userType | null>(null); // שולט בתצוגת העדכון
 
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -24,11 +25,24 @@ export const GetUsers: React.FC = () => {
                 }
             }
             catch (error) {
-                console.error("Error fetching diets:", error);
+                console.error("Error fetching users:", error);
             }
         }
         fetchUsers()
     }, []);
+
+    const handleDeleteUser = async (userId: number) => {
+        try {
+            const deletedUser = await deleteUser(userId);  // הנח שהפונקציה קיימת בשירות
+            console.log("Deleted User: ", deletedUser);
+            setUsers((prev) => prev?.filter(user => user.id !== userId));  // מעדכן את הרשימה
+        }
+        catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
+
+
 
     const filteredUsers = users?.filter((user) =>
         user.userName.toLowerCase().includes(inputSearch.toLowerCase())
@@ -55,19 +69,23 @@ export const GetUsers: React.FC = () => {
                         <p>מייל: {user.email}</p>
                         <p>טלפון: {user.phone}</p>
                         <button type='submit' className="update-button" onClick={() => setSelectedUser(user)}>עדכן תפקיד</button>
+                        <button type='submit' className="delete-button" onClick={() => handleDeleteUser(user.id)}>מחק משתמש</button>
                     </div>
                 ))}
             </div>
 
             {/* הצגת `UpdateUser` על המסך במקרה שנבחר משתמש */}
-            {selectedUser && (
-                <div className="update-user-modal">
-                    <div className="modal-content">
-                        <button className="close-button" onClick={() => setSelectedUser(null)}>✖</button>
-                        <UpdateUser user={selectedUser} />
+            {
+                selectedUser && (
+                    <div className="update-user-modal">
+                        <div className="modal-content">
+                            <button className="close-button" onClick={() => setSelectedUser(null)}>✖</button>
+                            {/* <UpdateUser showRole={true} /> */}
+                            <UpdateUser showRole={true} user={selectedUser} />
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
         </div >
     );
 };
