@@ -16,7 +16,7 @@ export const Register = () => {
         phone: "",
         file: null as File | null,
         favoriteFood: [],
-        weight: [-1.0],
+        weight: "-1",
         dietId: 0
     });
     const [errors, setErrors] = useState<{ [key: string]: string }>({});

@@ -43,7 +43,7 @@ export const addUser = async (user: Omit<userType, 'id'>) => {
   formData.append('Email', user.email);
   formData.append('Phone', user.phone);
   // שליחת משקלים כמחרוזת JSON
-  formData.append('Weight', user.weight as any);
+  formData.append('Weight', user.weight);
 
   // שליחת מאכלים אהובים כמחרוזת JSON
   formData.append('FavoriteFood', JSON.stringify(user.favoriteFood));
@@ -91,10 +91,9 @@ export const updateUser = async (user: userType) => {
   formData.append('Phone', user.phone);
 
   if (user.weight && user.weight.length > 0) {
-    formData.append('Weight', user.weight as any);
-    console.log("weight: " + user.weight)
+    formData.append('Weight', user.weight);
   } else {
-    formData.append('Weight', [-1.0] as any); // ערך ברירת מחדל
+    formData.append('Weight', "-1"); // ערך ברירת מחדל
   }
   // שליחת מאכלים אהובים כמחרוזת JSON
   formData.append('FavoriteFood', JSON.stringify(user.favoriteFood));

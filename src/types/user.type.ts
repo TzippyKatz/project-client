@@ -14,7 +14,7 @@ export type userType = {
     phone: string;
     file: File | null;
     favoriteFood: Array<foodType>;
-    weight: Array<Number>;
+    weight: string;
     dietId: number;
 }
 

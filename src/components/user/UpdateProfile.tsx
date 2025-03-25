@@ -143,7 +143,7 @@ export const UpdateUser: React.FC<{ showRole: boolean; user: userType | null }> 
         phone: "",
         file: null as File | null,
         favoriteFood: [],
-        weight: [-1.0],
+        weight: "",
         dietId: 0
     });
     const [error, setError] = useState<string>("");
@@ -152,19 +152,28 @@ export const UpdateUser: React.FC<{ showRole: boolean; user: userType | null }> 
 
     useEffect(() => {
         const fetchUser = async () => {
-            const user = localStorage.getItem("user");
-            if (user) {
-                const userData = JSON.parse(user);
-                const decodedToken = jwtDecode(userData.token);
-                const userId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
-                const user1 = await getUserById(userId);
-                await setFormData((prev) => ({ ...prev, ...user1 }));
+            if (user) { 
+                setFormData((prev) => ({ ...prev, ...user }));
             } else {
-                console.error("User not found in storage");
+                const userStorage = localStorage.getItem("user");
+                if (userStorage) {
+                    try {
+                        const userData = JSON.parse(userStorage);
+                        const decodedToken = jwtDecode(userData.token);
+                        const userId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+                        const user1 = await getUserById(userId);
+                        setFormData((prev) => ({ ...prev, ...user1 }));
+                    } catch (error) {
+                        console.error("Failed to parse user from storage", error);
+                    }
+                } else {
+                    console.error("User not found in storage");
+                }
             }
         };
         fetchUser();
-    }, []);
+    }, [user]);
+    
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -204,7 +213,7 @@ export const UpdateUser: React.FC<{ showRole: boolean; user: userType | null }> 
                         <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} required />
 
                         <label htmlFor="email">מייל:</label>
-                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required disabled />
 
                         <label htmlFor="password">סיסמה:</label>
                         <div className="password-container">

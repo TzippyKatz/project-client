@@ -29,7 +29,7 @@ export const GetUsers: React.FC = () => {
             }
         }
         fetchUsers()
-    }, []);
+    }, [selectedUser]);
 
     const handleDeleteUser = async (userId: number) => {
         try {

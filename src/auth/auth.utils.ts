@@ -89,7 +89,7 @@ export const restoreSession = createAsyncThunk(
                 phone: '', // אין מידע בטוקן
                 file: null, // אין מידע בטוקן
                 favoriteFood: [], // אין מידע בטוקן
-                weight: [], // אין מידע בטוקן
+                weight: "", // אין מידע בטוקן
                 dietId: 0 // אין מידע בטוקן
             };
 
@@ -104,7 +104,7 @@ export const restoreSession = createAsyncThunk(
                     Object.assign(user, {
                         ...userData,
                         favoriteFood: userData.favoriteFood || [],
-                        weight: userData.weight || [],
+                        weight: userData.weight || "",
                         dietId: userData.dietId ?? 0
                     });
                 }

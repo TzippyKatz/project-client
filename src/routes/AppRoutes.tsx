@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAppSelector } from '../redux/store'
 import PrivateRoute from '../components/auth/PrivateRoute'
@@ -12,6 +12,9 @@ import AboutPage from '../pages/AboutPage'
 import { GetUsers } from '../components/user/GetUsers'
 import { UpdateUser } from '../components/user/UpdateProfile'
 import { foodType } from '../types/food.type'
+import { jwtDecode } from '../auth/auth.utils'
+import { getUserById } from '../services/user.service'
+import { UserProfile } from '../components/user/UserProfile'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -27,9 +30,28 @@ const AppRoutes: React.FC = () => {
         phone: "",
         file: null as File | null,
         favoriteFood: [],
-        weight: [-1.0],
+        weight: "",
         dietId: 0
     }
+
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         try {
+    //             const userString = localStorage.getItem("user");
+    //             if (userString) {
+    //                 const userData = JSON.parse(userString);  // כעת אין סכנה ל-JSON.parse(null)
+    //             }
+    //             const decodedToken = jwtDecode(userData.token);
+    //             const userId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+    //             const user1 = await getUserById(userId);
+    //         } catch (error) {
+    //             console.error("Error fetching users:", error);
+    //         }
+    //     }
+    //     fetchUser()
+    // }, [])
+
+
     return (
         <Routes>
             {/* ניתובים ציבוריים */}
@@ -47,9 +69,11 @@ const AppRoutes: React.FC = () => {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/getDiets" element={<GetDiets showCreateFilters={true} />} />
             <Route path="/getUsers" element={<GetUsers />} />
+            <Route path="/profile" element={<UserProfile />} />
 
             {/* <UpdateUser showRole={false} user={null} /> */}
             {/* החלפתי בגלל שזה לא נתן JSX בתןך Route */}
+
             <Route path="/update-user" element={<UpdateUser showRole={false} user={null} />} />
             {/* דפי לוח בקרה לפי תפקיד */}
             {/* <Route path="/admin-dashboard" element={

@@ -68,7 +68,7 @@ const loginSlice = createSlice({
                         phone: "",
                         file: null,
                         favoriteFood: [],
-                        weight: [] as any,
+                        weight: "" as any,
                         dietId: 0,
                         image: ""
                     };
