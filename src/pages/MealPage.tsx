@@ -8,7 +8,7 @@ export const MealPage = () => {
         <div>
             <h1>דף הארוחות</h1>
             <button onClick={() => setShowModal(true)}>הוסף ארוחה</button>
-            <AddMeal />
+            {/* <AddMeal /> */}
         </div>
     );
 };

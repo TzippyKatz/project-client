@@ -1,68 +1,85 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; // הוספת import
 import { searchRecipes, getRecipeUrl } from "../../services/recipe.service";
-import { Button, TextField, Card } from "@mui/material";
 
 interface MealRecipeModalProps {
+    mealIdProps: number;
     isOpen: boolean;
     onClose: () => void;
 }
 
-export const MealRecipeModal: React.FC<MealRecipeModalProps> = ({ isOpen, onClose }) => {
-    const [mealId, setMealId] = useState<string>("");
+export const MealRecipe: React.FC<MealRecipeModalProps> = ({ mealIdProps, isOpen, onClose }) => {
+    const location = useLocation(); // שימוש ב-useLocation
+    const { mealIdProps: mealIdFromState, isOpen: isOpenFromState } = location.state || {}; // קבלת הערכים מ-state
     const [recipes, setRecipes] = useState<any[]>([]);
     const [error, setError] = useState<string>("");
+    const[url, setUrl] = useState("")
 
-    const handleSearch = async () => {
-        if (!mealId) {
-            setError("נא להזין מזהה ארוחה.");
-            return;
-        }
-        setError("");
+    const mealId = mealIdFromState || mealIdProps;
+    useEffect(() => {
+        console.log("mealIdProps: " + mealId);
+    }, [mealId]);
+
+    useEffect(() => {
+        const fetchURLs = async () => {
+            if (!mealId) {
+                setError("מזהה הארוחה לא זמין.");
+                return;
+            }
+            try {
+                const recipesList = await searchRecipes(mealId);
+                setRecipes(recipesList);
+            } catch (error) {
+                setError("שגיאה בקבלת כתובת מתכון.");
+            }
+        };
+        fetchURLs();
+    }, [mealId]);
+
+    useEffect(() => {
+        console.log("recipes: " + JSON.stringify(recipes));
+    }, [recipes]);
+
+    const handleClick = async (recipeId: number) => {
+        console.log("recipeId: " + recipeId);
         try {
-            const result = await searchRecipes(Number(mealId));
-            setRecipes(result);
+            const urls = await getRecipeUrl(recipeId); // קבלת ה-URL מהשרת
+            setUrl(urls); // עדכון ה-state עם ה-URL
+            console.log(urls);
+    
+            // פתיחת ה-URL בכרטיסיה חדשה
+            if (url) {
+                const recipeUrl = url; // אם יש URL, השתמשו בו
+                window.open(recipeUrl, "_blank"); // פותח את ה-URL בכרטיסיה חדשה
+            } else {
+                console.log("No URL found for recipe.");
+            }
         } catch (error) {
-            setError("שגיאה בחיפוש מתכונים.");
+            console.error("Error fetching recipe URL:", error);
         }
     };
-
-    const handleGetRecipeUrl = async (recipeId: number) => {
-        try {
-            const url = await getRecipeUrl(recipeId);
-            window.open(url, "_blank");
-        } catch (error) {
-            setError("שגיאה בקבלת כתובת מתכון.");
-        }
-    };
+    
 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-5 rounded-lg shadow-lg w-96">
-                <h2 className="text-xl font-semibold mb-3">חיפוש מתכונים לארוחה</h2>
-                {error && <p className="text-red-500">{error}</p>}
-                <TextField
-                    type="number"
-                    placeholder="מזהה ארוחה"
-                    value={mealId}
-                    onChange={(e) => setMealId(e.target.value)}
-                    fullWidth
-                />
-                <Button className="mt-2 w-full" variant="contained" color="primary" onClick={handleSearch}>חפש מתכונים</Button>
-                <Button className="mt-2 w-full" variant="outlined" color="secondary" onClick={onClose}>סגור</Button>
-                <div className="mt-4">
-                    {recipes.length > 0 ? (
-                        recipes.map((recipe) => (
-                            <Card key={recipe.id} className="mb-2 p-3">
-                                <p>{recipe.name}</p>
-                                <Button variant="contained" color="success" onClick={() => handleGetRecipeUrl(recipe.id)}>פתח מתכון</Button>
-                            </Card>
-                        ))
-                    ) : (
-                        <p className="text-gray-500">אין מתכונים זמינים.</p>
-                    )}
-                </div>
+        <div>
+            {error && <div>{error}</div>}
+            <div>
+                {recipes.map((recipe) => (
+                    <div key={recipe.id}>
+                        <button onClick={() => handleClick(recipe.id)}>
+                            <div>
+                                <img
+                                    src={recipe.image}  // הצגת התמונה
+                                    alt={recipe.title}   // תיאור של התמונה (לנגישות)
+                                    style={{ width: "100px", height: "auto", marginRight: "10px" }}  // סגנון פשוט לתמונה
+                                />
+                                {recipe.title}
+                            </div>
+                        </button>
+                    </div>
+                ))}
             </div>
         </div>
     );

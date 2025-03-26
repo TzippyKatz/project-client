@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { jwtDecode } from '../../auth/auth.utils';
 import { getUserById, updateUser } from '../../services/user.service';
-import { data } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import { dietType } from '../../types/diet.type';
 import { getDietById } from '../../services/diets.service';
+import { getMeals } from '../../services/meal.service';
 import './UserProfile.css'
+import { GetMeals } from '../meals/GetMeals';
 
 
 export const UserProfile = () => {
@@ -47,6 +49,10 @@ export const UserProfile = () => {
         console.table(weightArr);
     }, [weightArr]);
 
+    useEffect(() => {
+        console.table("dietProfile: " + JSON.stringify(dietProfile))
+    }, [dietProfile]);
+
     //עדכון גרף אחרי שמוסיף משקל
     const updateWeightGraph = (weightsString: string) => {
         const weights = weightsString.split(",").map((w: string) => parseFloat(w));
@@ -67,6 +73,20 @@ export const UserProfile = () => {
             updateWeightGraph(updatedWeights)
             setNewWeight('')
         }
+    };
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    // פונקציה לסגירת המודאל
+    const onClose = () => {
+        setIsOpen(false); // סוגרת את המודאל
+    };
+
+    const navigate = useNavigate()
+
+    const handleNavigate = () => {
+        const customValues = { dietId: dietProfile?.id, isOpen: true };
+        navigate("/getMeals", { state: customValues });
     };
 
     return (
@@ -100,12 +120,7 @@ export const UserProfile = () => {
                     <p><strong>מטרה:</strong> {dietProfile.descGoal}</p>
                     <p><strong>טווח גילאים:</strong> {dietProfile.ageMinimum} - {dietProfile.ageMaximum}</p>
                     <p><strong>דירוג:</strong> {dietProfile.rate}⭐</p>
-                    <h3>ארוחות:</h3>
-                    <ul>
-                        {dietProfile?.meals?.map((meal, index) => (
-                            <li key={index}>{meal.typeMealId} - {meal.calories} קלוריות</li>
-                        )) ?? <p>אין מידע על ארוחות</p>}
-                    </ul>
+                    <button onClick={handleNavigate}>ארוחות</button>
                 </div>
             )}
         </div>

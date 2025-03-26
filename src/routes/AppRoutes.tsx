@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAppSelector } from '../redux/store'
 import PrivateRoute from '../components/auth/PrivateRoute'
@@ -18,6 +18,9 @@ import { UserProfile } from '../components/user/UserProfile'
 import { AddMeal } from '../components/meals/AddMeal'
 import { MealPage } from '../pages/MealPage'
 import { AddFood } from '../components/food/AddFood'
+import { MealRecipe } from '../components/recipe/recipySearch'
+import GetMeal, { GetMeals } from '../components/meals/GetMeals'
+import { mealType } from '../types/meal.type'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -37,6 +40,19 @@ const AppRoutes: React.FC = () => {
         dietId: 0
     }
 
+    const mealData: mealType = {
+        id: 1,
+        calories: 500,
+        carbohydrates: 60,
+        proteins: 30,
+        cholesterol: 50,
+        sugars: 10,
+        sodium: 200,
+        foods: [],
+        typeMealId: 0,
+        dietId: 1
+      };
+
     // useEffect(() => {
     //     const fetchUser = async () => {
     //         try {
@@ -53,7 +69,13 @@ const AppRoutes: React.FC = () => {
     //     }
     //     fetchUser()
     // }, [])
+    //למתכונים בשביל החלון קופץ
+    const [isOpen, setIsOpen] = useState(false);
 
+    // פונקציה לסגירת המודאל
+    const onClose = () => {
+        setIsOpen(false); // סוגרת את המודאל
+    };
 
     return (
         <Routes>
@@ -75,6 +97,8 @@ const AppRoutes: React.FC = () => {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/addDiet" element={<AddDiet />} />
             <Route path="/food" element={<AddFood />} />
+            <Route path="/recipe" element={<MealRecipe mealIdProps={0} isOpen={true} onClose={onClose}/>} />
+            <Route path="/getMeals" element={<GetMeals dietId={4} isOpen={true} onClose={onClose}/>} />
             {/* <Route path="/addMeal" element={<AddMeal />} /> */}
             <Route path="/meal" element={<MealPage />} />
 

@@ -44,3 +44,9 @@ export const updateMeal = async (meal: mealType) =>{
     const data = response.data
     return data
 }
+
+export const getMealsByDiet=async (dietId:number) => {
+    const response = await axios.get(`${serviceUrl}/dietId/${dietId}`)
+    const data = response.data
+    return data
+}
