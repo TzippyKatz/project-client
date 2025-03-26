@@ -36,6 +36,9 @@ export const AddFood = () => {
         if (formData.carbohydrates < 0 || formData.proteins < 0 || formData.cholesterol < 0 || formData.sugars < 0 || formData.sodium < 0) {
             return "כל הערכים התזונתיים חייבים להיות מספרים חיוביים או אפס.";
         }
+        if(formData.imageUrl === ""){
+            return "יש להעלות תמונת מוצר"
+        }
         return "";
     };
 
