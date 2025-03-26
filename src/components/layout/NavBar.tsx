@@ -6,9 +6,15 @@ import { RootState } from '../../redux/store';
 import logo_dietProject from '../../images/logo_dietProject.png';
 import './NavBar.css'
 import { logout } from '../../redux/slices/login.slice';
+import { jwtDecode } from '../../auth/auth.utils';
+
 
 const Navbar: React.FC = () => {
     const { user } = useSelector((state: RootState) => state.auth); const dispatch = useDispatch();
+    let token = localStorage.getItem('user')
+    const decodedToken = jwtDecode(token || "null")
+    const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -49,7 +55,7 @@ const Navbar: React.FC = () => {
                             אודות
                         </Link>
                     </li>
-                    {user && (
+                    {role && (
                         <>
                             <li className="nav-item">
                                 <Link to="/profile" className="nav-link" onClick={() => setMenuOpen(false)}>
@@ -63,7 +69,7 @@ const Navbar: React.FC = () => {
                             </li>
                         </>
                     )}
-                    {!user && (
+                    {!role && (
                         <>
                             <li className="nav-item">
                                 <Link to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>

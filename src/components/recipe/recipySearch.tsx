@@ -59,7 +59,7 @@ export const MealRecipe: React.FC<MealRecipeModalProps> = ({ mealIdProps, isOpen
         }
     };
     
-/////////////
+
     if (!isOpen) return null;
 
     return (

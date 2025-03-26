@@ -21,6 +21,7 @@ export const AddDiet = () => {
     };
 
     const [formData, setFormData] = useState({
+        dietId:0,
         dietitianId: 0,
         descGoal: "",
         meals: [] as mealType[],

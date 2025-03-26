@@ -7,5 +7,6 @@ export type dietType = {
     meals: Array<mealType>
     rate: number
     ageMinimum: number,
-    ageMaximum: number
+    ageMaximum: number,
+    dietId: number
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getDiet, getDietByDietitianId, getDietitianNameByDietitianId } from '../../services/diets.service';
+import { getDiet, getDietByDietitianId, getDietById, getDietitianNameByDietitianId } from '../../services/diets.service';
 import { dietType } from "../../types/diet.type";
 import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
 import './GetDiets.css'
+import { getUserById, updateUser } from '../../services/user.service';
+import { jwtDecode } from '../../auth/auth.utils';
 
 interface GetDietsProps {
     showCreateFilters: boolean;
@@ -13,6 +15,7 @@ interface GetDietsProps {
 export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
     console.log("showCreateFilters:", showCreateFilters);
 
+    const [diet, setDiet] = useState<dietType>()
     const [diets, setDiets] = useState<dietType[]>([])
     const [dietitianInput, setDietitianInput] = useState("")
     const [goalInput, setGoalInput] = useState("")
@@ -73,7 +76,7 @@ export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
 
 
     const filteredDiets = diets.filter((diet) => {
-        const byDietitian = dietitianInput ? diet.dietitianId.toString().includes(dietitianInput) : true
+        const byDietitian = dietitianInput ? diet.dietitianId === Number(dietitianInput) : true;
         const byGoal = goalInput ? diet.descGoal.includes(goalInput) : true
         const byAge = ageInput ? diet.ageMinimum < Number(ageInput) && diet.ageMaximum > Number(ageInput) : true
 
@@ -107,6 +110,35 @@ export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
             }
         }
     }
+
+    const handleClickAddDiet = async (dietId: number) => {
+        const userStorage = localStorage.getItem("user");
+        let user;
+        if (userStorage) {
+            try {
+                const userData = JSON.parse(userStorage);
+                const decodedToken = jwtDecode(userData.token);
+                const userId = parseInt(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
+                user = await getUserById(userId);
+            } catch (error) {
+                console.error("Failed to parse user from storage", error);
+            }
+        } else {
+            console.error("User not found in storage");
+        }
+        const newUser = { ...user, dietId: dietId }
+        await updateUser(newUser)
+    }
+
+    const handleClickDetails = async (dietId: number) => {
+        try {
+            const fetchDiet = await getDietById(dietId);
+            setDiet(fetchDiet);
+        } catch (error) {
+            console.error("Error fetching diet details:", error);
+        }
+    }
+    
 
     return (
         <div className="container">
@@ -156,17 +188,34 @@ export const GetDiets: React.FC<GetDietsProps> = ({ showCreateFilters }) => {
             )}
 
             {/* רשימת דיאטות */}
-            <div className="diets-container">
-                {filteredDiets.map((diet) => (
-                    <div key={diet.id} className="diet-card">
-                        <h3>{diet.descGoal}</h3>
-                        <p>תזונאי: {dietitianNames[diet.dietitianId]}</p>
-                        <p>דירוג: {diet.rate}</p>
-                        <button onClick={() => { }}>פרטים נוספים</button>
-                        <button>בחירת דיאטה</button>
-                    </div>
-                ))}
-            </div>
+            {shouldShowFilters() && (
+                <div className="diets-container">
+                    {filteredDiets.map((diet) => (
+                        <div key={diet.id} className="diet-card">
+                            <h3>{diet.descGoal}</h3>
+                            <p>תזונאי: {dietitianNames[diet.dietitianId]}</p>
+                            <p>דירוג: {diet.rate}</p>
+                            <button onClick={() => { handleClickDetails(diet.id) }}>פרטים נוספים</button>
+                            <button onClick={() => { handleClickAddDiet(diet.id) }}>בחירת דיאטה</button>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {!shouldShowFilters() && (
+                <div className="diets-container">
+                    {filteredDiets.map((diet) => (
+                        <div key={diet.id} className="diet-card">
+                            <h3>{diet.descGoal}</h3>
+                            <p>תזונאי: {dietitianNames[diet.dietitianId]}</p>
+                            <p>דירוג: {diet.rate}</p>
+                            <button disabled>פרטים נוספים</button>
+                            <button disabled>בחירת דיאטה</button>
+                        </div>
+                    ))}
+                </div>
+            )}
+            
         </div>
     );
 }
