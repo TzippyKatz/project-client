@@ -17,6 +17,7 @@ import { getUserById } from '../services/user.service'
 import { UserProfile } from '../components/user/UserProfile'
 import { AddMeal } from '../components/meals/AddMeal'
 import { MealPage } from '../pages/MealPage'
+import { AddFood } from '../components/food/AddFood'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -73,6 +74,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/getUsers" element={<GetUsers />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/addDiet" element={<AddDiet />} />
+            <Route path="/food" element={<AddFood />} />
             {/* <Route path="/addMeal" element={<AddMeal />} /> */}
             <Route path="/meal" element={<MealPage />} />
 

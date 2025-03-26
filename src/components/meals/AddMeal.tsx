@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addMeal } from "../../services/meal.service";
-import { foodType } from "../../types/food.type";
+import { Categories, foodType, Pmd } from "../../types/food.type";
 
 export const AddMeal = () => {
     const [formData, setFormData] = useState({
@@ -46,7 +46,10 @@ export const AddMeal = () => {
             cholesterol: 0,
             sugars: 0,
             sodium: 0,
-            imageUrl: ""
+            imageUrl: "",
+            pmd: Pmd.Parve,
+            category: Categories.Dairy,
+            imageFile: null
         }));
 
         setFormData(prevState => ({
