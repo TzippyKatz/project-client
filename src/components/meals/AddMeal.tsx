@@ -2,7 +2,11 @@ import { useState } from "react";
 import { addMeal } from "../../services/meal.service";
 import { Categories, foodType, Pmd } from "../../types/food.type";
 
-export const AddMeal = () => {
+interface AddMealProps {
+    dietId: number
+}
+
+export const AddMeal: React.FC<AddMealProps> = ({ dietId }) => {
     const [formData, setFormData] = useState({
         calories: 0,
         carbohydrates: 0,
@@ -78,7 +82,7 @@ export const AddMeal = () => {
         console.log(response);
     };
 
-    
+
     return (
         <div style={{ padding: "20px" }}>
             <h2>הוספת ארוחה</h2>
@@ -93,17 +97,21 @@ export const AddMeal = () => {
                 <label>חלבונים:</label>
                 <input type="number" name="proteins" value={formData.proteins} onChange={handleChange} />
 
-                <label>מזונות (מופרדים בפסיק):</label>
-                <input type="text" name="foods" onChange={handleFoodsChange} />
+                <label>קולוסרול:</label>
+                <input type="number" name="cholesterol" value={formData.cholesterol} onChange={handleChange} />
 
-                <label>סוג הארוחה:</label>
-                <input type="number" name="typeMealId" value={formData.typeMealId} onChange={handleChange} />
+                <label>סוכרים:</label>
+                <input type="number" name="sugars" value={formData.sugars} onChange={handleChange} />
+
+                <label>נתרן:</label>
+                <input type="number" name="sodium" value={formData.sodium} onChange={handleChange} />
 
                 <button type="submit">הוסף ארוחה</button>
             </form>
         </div>
     );
-};
+}
+
 
 const modalOverlayStyle: React.CSSProperties = {
     position: "fixed",
