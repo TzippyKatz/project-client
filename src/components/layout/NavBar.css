@@ -1,14 +1,17 @@
+/* Navbar styles */
 .navbar {
-    background: linear-gradient(90deg, #4CAF50 0%, #81C784 100%);
-    height: 70px;
+    background: linear-gradient(90deg, #43A047 0%, #66BB6A 100%);
+    height: 90px; /* הגדלת גובה הניווט */
     display: flex;
     justify-content: center;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 999;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: background 0.3s ease-in-out;
+    width: 99vw; /* הבטחת התאמה מלאה לרוחב */
 }
 
 .navbar-container {
@@ -23,79 +26,73 @@
 .navbar-logo {
     color: #fff;
     text-decoration: none;
-    font-size: 1.5rem; /* הקטנת גודל הטקסט */
+    font-size: 1.8rem;
     font-weight: bold;
     display: flex;
     align-items: center;
     height: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
 }
 
 .logo-image {
-    height: 60%; /* התאמה לגובה ה-navbar */
-    max-height: 50px; /* מגבלת גובה */
-    width: auto; /* שמירה על פרופורציות */
-    margin-right: 8px;
-}
-
-.logo-text {
-    margin-right: 8px;
+    height: 60px;
+    width: auto;
+    margin-right: 10px;
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
     list-style: none;
-    text-align: center;
     margin: 0;
     padding: 0;
 }
 
 .nav-item {
-    height: 70px;
+    height: 90px;
     display: flex;
     align-items: center;
 }
 
 .nav-link {
     color: #fff;
-    display: flex;
-    align-items: center;
     text-decoration: none;
-    padding: 0 1rem;
-    height: 100%;
+    padding: 14px 20px;
     font-weight: 500;
     transition: all 0.3s ease-in-out;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .nav-link:hover {
-    color: #f0f0f0;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
 }
 
 .register-link {
     background-color: #fff;
-    color: #4CAF50;
-    border-radius: 8px;
-    padding: 8px 16px;
-    margin: 0 10px;
-    height: auto;
+    color: #2E7D32;
+    border-radius: 12px;
+    padding: 12px 24px;
     font-weight: bold;
     transition: all 0.3s ease-in-out;
 }
 
 .register-link:hover {
-    background-color: #f0f0f0;
-    color: #388E3C;
+    background-color: #f5f5f5;
+    color: #1B5E20;
+    transform: scale(1.05);
 }
 
 .logout-button {
     background-color: transparent;
     border: 1px solid #fff;
     color: #fff;
-    border-radius: 8px;
-    padding: 8px 16px;
-    margin: 0 10px;
+    border-radius: 12px;
+    padding: 12px 24px;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease-in-out;
@@ -103,6 +100,7 @@
 
 .logout-button:hover {
     background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .menu-icon {
@@ -115,25 +113,21 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 90px);
         position: absolute;
-        top: 70px;
+        top: 90px;
         right: -100%;
-        opacity: 1;
-        transition: all 0.5s ease-in-out;
-        background: #4CAF50;
-        border-radius: 0 0 8px 8px;
+        background: #2E7D32;
+        border-radius: 0 0 12px 12px;
+        transition: right 0.5s ease-in-out;
     }
 
     .nav-menu.active {
         right: 0;
-        opacity: 1;
-        transition: all 0.5s ease-in-out;
-        z-index: 1;
     }
 
     .nav-item {
-        height: 60px;
+        height: 70px;
         width: 100%;
     }
 
@@ -144,26 +138,31 @@
         display: table;
     }
 
-    .register-link {
-        margin: 10px auto;
+    .register-link, .logout-button {
+        margin: 15px auto;
         width: 80%;
         display: table;
         text-align: center;
     }
 
-    .logout-button {
-        margin: 10px auto;
-        width: 80%;
-    }
-
     .menu-icon {
         display: block;
         position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(100%, 60%);
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
         font-size: 1.8rem;
         cursor: pointer;
         color: #fff;
+        transition: transform 0.3s ease-in-out;
     }
+
+    .menu-icon:hover {
+        transform: scale(1.1);
+    }
+}
+
+/* מרווח לתוכן מתחת לניווט */
+body {
+    padding-top: 100px;
 }
