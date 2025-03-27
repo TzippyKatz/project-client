@@ -19,17 +19,14 @@ export const AddFood = () => {
     });
 
     const [error, setError] = useState<string>("");
-    const [selectedPmd, setSelectedPmd] = useState<Pmd | "">("");
-    const [selectedCategory, setSelectedCategory] = useState<Categories | "">("");
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, files } = e.target;
         if (name === "imageFile" && files) {
-            // עדכון הסטייט עבור קובץ התמונה
             setFormData(prevState => ({
                 ...prevState,
-                imageFile: files[0] // כאן אנחנו מעדכנים את הסטייט עם הקובץ עצמו
+                imageFile: files[0]
             }));
         } else {
             setFormData(prevState => ({
@@ -39,7 +36,6 @@ export const AddFood = () => {
         }
     };
 
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const validationError = validateForm();
@@ -48,46 +44,30 @@ export const AddFood = () => {
             return;
         }
         setError("");
-
         const response = await addFood(formData);
         console.log(response);
         navigate("/diet");
     };
 
     const validateForm = () => {
-        if (!formData.name.trim()) {
-            return "יש להזין שם מזון.";
-        }
-        if (formData.calories <= 0) {
-            return "כמות הקלוריות חייבת להיות מספר חיובי.";
-        }
+        if (!formData.name.trim()) return "יש להזין שם מזון.";
+        if (formData.calories <= 0) return "כמות הקלוריות חייבת להיות מספר חיובי.";
         if (formData.carbohydrates < 0 || formData.proteins < 0 || formData.cholesterol < 0 || formData.sugars < 0 || formData.sodium < 0) {
             return "כל הערכים התזונתיים חייבים להיות מספרים חיוביים או אפס.";
         }
-        if (formData.imageUrl === "" && formData.imageFile === null) {
-            return "יש להעלות תמונת מוצר"
-        }
+        if (!formData.imageUrl && !formData.imageFile) return "יש להעלות תמונת מוצר";
         return "";
     };
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, imageFile: e.target.files ? e.target.files[0] : null });
+    
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value as unknown as Pmd | Categories
+        }));
     };
-
-    // עדכון הסטייט רק אם נבחר ערך תקני
-    useEffect(() => {
-        if (selectedPmd !== "") {
-            setFormData(prevState => ({ ...prevState, pmd: Number(selectedPmd) }));
-        }
-    }, [selectedPmd]);
-
-    useEffect(() => {
-        if (selectedCategory !== "") {
-            setFormData(prevState => ({ ...prevState, category: Number(selectedCategory) }));
-        }
-    }, [selectedCategory]);
-
-
+    
     return (
         <div style={{ maxWidth: "400px", margin: "auto", textAlign: "right" }}>
             <h2>הוספת מזון</h2>
@@ -115,26 +95,23 @@ export const AddFood = () => {
                 <input type="number" name="sodium" value={formData.sodium} onChange={handleChange} />
 
                 <label>תמונה (קובץ):</label>
-                <input type="file" id="file" name="imageFile" onChange={handleChange} accept="image/*" />
-                {/* <label>תמונה (קישור):</label>
-                <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} /> */}
-                <div className="selectors-container">
-                    <select value={selectedPmd} onChange={(e) => setSelectedPmd(e.target.value as unknown as Pmd)}>
-                        <option value="">בחר סוג</option>
-                        {Object.keys(Pmd).map((key) => (
-                            <option key={key} value={Pmd[key as keyof typeof Pmd]}>
-                                {key} {/* מציג את הערכים המחרוזתיים */}
-                            </option>
-                        ))}
-                    </select>
+                <input type="file" name="imageFile" onChange={handleChange} accept="image/*" />
+                
+                <label>סוג (PMD):</label>
+                <select name="pmd" value={formData.pmd} onChange={handleSelectChange}>
+                    <option value="">בחר סוג</option>
+                    {Object.values(Pmd).map((value) => (
+                        <option key={value} value={value}>{value}</option>
+                    ))}
+                </select>
 
-                    <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value as unknown as Categories)}>
-                        <option value="">בחר קטגוריה</option>
-                        {Object.values(Categories).map((category) => (
-                            <option key={category} value={Categories[category as keyof typeof Categories]}>{category}</option>
-                        ))}
-                    </select>
-                </div>
+                <label>קטגוריה:</label>
+                <select name="category" value={formData.category} onChange={handleSelectChange}>
+                    <option value="">בחר קטגוריה</option>
+                    {Object.values(Categories).map((category) => (
+                        <option key={category} value={category}>{category}</option>
+                    ))}
+                </select>
 
                 <button type="submit">הוסף מזון</button>
             </form>
