@@ -1,0 +1,52 @@
+.userProfile-container {
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    direction: rtl;
+}
+
+.userProfile-container h1 {
+    color: #4CAF50;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    margin-bottom: 30px;
+}
+
+.diet-container {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: right;
+}
+
+.diet-container h2 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.diet-container p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.diet-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.diet-container li {
+    background: #e8f5e9;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}

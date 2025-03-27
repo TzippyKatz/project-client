@@ -1,0 +1,184 @@
+.home-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    direction: rtl;
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.home-header h1 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+}
+
+.welcome-message {
+    font-size: 1.2rem;
+    color: rgb(80, 174, 109);
+}
+
+.guest-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.guest-message p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.login-link {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.login-link:hover {
+    background-color: #4CAF50;
+}
+
+.home-content {
+    display: flex;
+    gap: 30px;
+}
+
+.main-content {
+    flex: 2;
+}
+
+.side-content {
+    flex: 1;
+}
+
+.posts-section, 
+.challenges-section,
+.login-prompt {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.posts-section h2,
+.challenges-section h2,
+.login-prompt h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.features-list {
+    margin: 20px 0;
+    padding-right: 20px;
+}
+
+.features-list li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.features-list li::before {
+    content: "✓";
+    color: #4CAF50;
+    position: absolute;
+    right: -20px;
+}
+
+.login-button {
+    display: block;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+    justify-self: center;
+}
+
+.login-button:hover {
+    background-color: #0ba810;
+}
+
+/* צור קשר */
+.contact-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+.contact-section h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #0ba810;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .home-content {
+        flex-direction: column;
+    }
+    
+    .home-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .contact-section {
+        margin-top: 20px;
+    }
+}
