@@ -49,11 +49,6 @@ const Navbar: React.FC = () => {
 
                 <ul className={menuOpen ? 'nav-menu active' : 'nav-menu'}>
                     <li className="nav-item">
-                        <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
-                            דף הבית
-                        </Link>
-                    </li>
-                    <li className="nav-item">
                         <Link to="/getDiets" className="nav-link" onClick={() => setMenuOpen(false)}>
                             דיאטות
                         </Link>
@@ -61,6 +56,11 @@ const Navbar: React.FC = () => {
                     <li className="nav-item">
                         <Link to="/about" className="nav-link" onClick={() => setMenuOpen(false)}>
                             אודות
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
+                            דף הבית
                         </Link>
                     </li>
                     {role && (
