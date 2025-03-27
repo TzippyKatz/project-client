@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { mealType } from "../../types/meal.type";
 import { getMealsByDiet } from "../../services/meal.service";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface MealModalProps {
   dietId: number;
@@ -10,7 +10,14 @@ interface MealModalProps {
   onClose: () => void;
 }
 
-export const GetMeals: React.FC<MealModalProps> = ({ dietId, isOpen, onClose }) => {
+// export const GetMeals: React.FC<MealModalProps> = ({ dietId, isOpen, onClose }) => {
+export const GetMeals: React.FC = () => {
+  const location = useLocation();
+  const { dietId: dietIdFromState, isOpen: isOpenFromState } = location.state || {};
+
+  const [isOpen, setIsOpen] = useState(isOpenFromState || false);
+  const [dietId, setDietId] = useState(dietIdFromState || null);
+
   const [meals, setMeals] = useState<mealType[]>([])
 
 
@@ -36,7 +43,7 @@ export const GetMeals: React.FC<MealModalProps> = ({ dietId, isOpen, onClose }) 
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="md">
+    <Dialog open={isOpen} fullWidth maxWidth="md">
       <DialogTitle>פרטי הארוחות</DialogTitle>
       <DialogContent>
         {meals.map((meal, mealIndex) => (
@@ -73,11 +80,11 @@ export const GetMeals: React.FC<MealModalProps> = ({ dietId, isOpen, onClose }) 
           </Card>
         ))}
       </DialogContent>
-      <DialogActions>
+      {/* <DialogActions>
         <Button onClick={onClose} color="primary">
           סגור
         </Button>
-      </DialogActions>
+      </DialogActions> */}
     </Dialog>
   );
 }

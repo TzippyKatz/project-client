@@ -8,5 +8,5 @@ export type dietType = {
     rate: number
     ageMinimum: number,
     ageMaximum: number,
-    dietId: number
+    // dietId: number
 }

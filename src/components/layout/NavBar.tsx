@@ -6,21 +6,29 @@ import { RootState } from '../../redux/store';
 import logo_dietProject from '../../images/logo_dietProject.png';
 import './NavBar.css'
 import { logout } from '../../redux/slices/login.slice';
-import { jwtDecode } from '../../auth/auth.utils';
+import { jwtDecode, removeSession } from '../../auth/auth.utils';
 
 
 const Navbar: React.FC = () => {
     const { user } = useSelector((state: RootState) => state.auth); const dispatch = useDispatch();
     let token = localStorage.getItem('user')
-    const decodedToken = jwtDecode(token || "null")
-    const role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+    let role;
+    if (token) {
+        const decodedToken = jwtDecode(token)
+        role = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+    }
+    else {
+        role = null
+    }
 
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleLogout = () => {
-        dispatch(logout());
-        navigate('/login');
+        // dispatch(logout());
+        removeSession();
+        role = null;
+        navigate('/');
     };
 
     const toggleMenu = () => {

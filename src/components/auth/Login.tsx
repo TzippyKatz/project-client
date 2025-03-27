@@ -94,13 +94,13 @@ export const Login = () => {
     const routeUserByRole = (role: string) => {
         switch (role.toLowerCase()) {
             case 'admin':
-                navigate('/admin-dashboard');
+                navigate('/admin');
                 break;
             case 'nutritionist':
-                navigate('/getDiets');
+                navigate('/nutri');
                 break;
             case 'user':
-                navigate('/user-dashboard');
+                navigate('/getDiets ');
                 break;
             default:
                 navigate('/');

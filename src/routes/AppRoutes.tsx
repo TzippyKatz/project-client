@@ -21,6 +21,10 @@ import { AddFood } from '../components/food/AddFood'
 import { MealRecipe } from '../components/recipe/recipySearch'
 import GetMeal, { GetMeals } from '../components/meals/GetMeals'
 import { mealType } from '../types/meal.type'
+import AdminPage from '../pages/adminPage'
+import NutritionistPage from '../pages/nutritionistPage'
+import { GetDiet } from '../components/diets/GetDiet'
+import { dietType } from '../types/diet.type'
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -51,7 +55,17 @@ const AppRoutes: React.FC = () => {
         foods: [],
         typeMealId: 0,
         dietId: 1
-      };
+    };
+
+    const dietData = {
+        id: 0,
+        dietitianId: 0,
+        descGoal: "",
+        meals: [] as mealType[],
+        rate: 0,
+        ageMinimum: 0,
+        ageMaximum: 0
+    };
 
     // useEffect(() => {
     //     const fetchUser = async () => {
@@ -92,13 +106,18 @@ const AppRoutes: React.FC = () => {
             } />
 
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/getDiets" element={<GetDiets showCreateFilters={true} />} />
+            <Route path="/getDiets" element={<GetDiets />} />
+            {/* <Route path="/getDiets" element={<GetDiets showCreateFilters={false} />} /> */}
             <Route path="/getUsers" element={<GetUsers />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/addDiet" element={<AddDiet />} />
             <Route path="/food" element={<AddFood />} />
-            <Route path="/recipe" element={<MealRecipe mealIdProps={0} isOpen={true} onClose={onClose}/>} />
-            <Route path="/getMeals" element={<GetMeals dietId={4} isOpen={true} onClose={onClose}/>} />
+            <Route path="/recipe" element={<MealRecipe mealIdProps={0} isOpen={true} onClose={onClose} />} />
+            <Route path="/getMeals" element={<GetMeals />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/nutri" element={<NutritionistPage />} />
+            <Route path="/getDiet" element={<GetDiet />} />
+
             {/* <Route path="/addMeal" element={<AddMeal />} /> */}
             <Route path="/meal" element={<MealPage />} />
 
@@ -133,7 +152,7 @@ const AppRoutes: React.FC = () => {
 
             <Route path="/getDiet" element={
                 <PrivateRoute>
-                    <GetDiets showCreateFilters={true} />
+                    <GetDiets />
                 </PrivateRoute>
             } />
 

@@ -33,6 +33,7 @@ export const GetUsers: React.FC = () => {
 
     const handleDeleteUser = async (userId: number) => {
         try {
+            alert("האם למחוק משתמש זה?")
             const deletedUser = await deleteUser(userId);  // הנח שהפונקציה קיימת בשירות
             console.log("Deleted User: ", deletedUser);
             setUsers((prev) => prev?.filter(user => user.id !== userId));  // מעדכן את הרשימה

@@ -81,6 +81,7 @@ export const updateUser = async (user: userType) => {
   const { id, ...userData } = user; // מסירים את ה-ID
   const formData = new FormData();
 
+  formData.append('DietId', String(user.dietId));
   formData.append('Password', user.password);
   formData.append('Role', user.role);
   formData.append('UserName', user.userName);

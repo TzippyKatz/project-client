@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
                     {user ? (
                         <section className="challenges-section">
                             <h2>אודות</h2>
-                            <GetDiets showCreateFilters={false} />
+                            <GetDiets />
                         </section>
                     ) : (
                         <section className="login-prompt">

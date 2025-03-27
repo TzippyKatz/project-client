@@ -15,14 +15,14 @@
 }
 
 .home-header h1 {
-    color: #0077b6;
+    color: #4CAF50;
     margin-bottom: 20px;
     font-size: 2.2rem;
 }
 
 .welcome-message {
     font-size: 1.2rem;
-    color: #333;
+    color: rgb(80, 174, 109);
 }
 
 .guest-message {
@@ -40,7 +40,7 @@
 
 .login-link {
     display: inline-block;
-    background-color: #0077b6;
+    background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -50,7 +50,7 @@
 }
 
 .login-link:hover {
-    background-color: #005b8c;
+    background-color: #4CAF50;
 }
 
 .home-content {
@@ -79,7 +79,7 @@
 .posts-section h2,
 .challenges-section h2,
 .login-prompt h2 {
-    color: #0077b6;
+    color: #4CAF50;
     margin-bottom: 20px;
     font-size: 1.5rem;
     border-bottom: 2px solid #e0e0e0;
@@ -98,7 +98,7 @@
 
 .features-list li::before {
     content: "✓";
-    color: #0077b6;
+    color: #4CAF50;
     position: absolute;
     right: -20px;
 }
@@ -106,7 +106,7 @@
 .login-button {
     display: block;
     width: 100%;
-    background-color: #0077b6;
+    background-color: #4CAF50;
     color: white;
     text-align: center;
     padding: 12px;
@@ -118,7 +118,7 @@
 }
 
 .login-button:hover {
-    background-color: #005b8c;
+    background-color: #0ba810;
 }
 
 /* Responsive styles */

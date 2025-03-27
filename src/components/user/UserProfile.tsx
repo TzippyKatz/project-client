@@ -28,7 +28,7 @@ export const UserProfile = () => {
                 setUserId(userId)
                 const user = await getUserById(userId);
                 setUserName(user.userName)
-                const weights = user.weight.split(",").map((w: string) => parseFloat(w));
+                const weights = user.weight.slice(3).split(",").map((w: string) => parseFloat(w));
                 const weightsForGraph = weights.map((weight: number, index: number) => ({
                     index: index + 1,
                     weight: weight
@@ -42,7 +42,7 @@ export const UserProfile = () => {
             }
         };
         fetchWeights()
-    }, []);
+    }, [weightArr]);
 
     //יוזאפקט להדפסת מערך המשקלים
     useEffect(() => {
@@ -86,6 +86,7 @@ export const UserProfile = () => {
 
     const handleNavigate = () => {
         const customValues = { dietId: dietProfile?.id, isOpen: true };
+        console.log("dietProfile.id: " + dietProfile?.id)
         navigate("/getMeals", { state: customValues });
     };
 

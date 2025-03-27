@@ -3,6 +3,7 @@ import { useState } from "react";
 import { addUser } from "../../services/user.service";
 import { Eye, EyeOff } from "lucide-react";
 import './Register.css'
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
     const [formData, setFormData] = useState({
@@ -50,6 +51,7 @@ export const Register = () => {
         return Object.keys(newErrors).length === 0;
     };
 
+    const navigate = useNavigate()
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSuccessMessage(null);
@@ -65,6 +67,7 @@ export const Register = () => {
             console.log("Success:", response.data);
             setSuccessMessage("המשתמש נרשם בהצלחה!");
             alert("המשתמש נרשם בהצלחה!");
+            navigate('/login');
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.error(error.response?.data);
