@@ -25,7 +25,7 @@ import AdminPage from '../pages/adminPage'
 import NutritionistPage from '../pages/nutritionistPage'
 import { GetDiet } from '../components/diets/GetDiet'
 import { dietType } from '../types/diet.type'
-import { BuildMeal } from '../components/BuildMeal/BuildMeal'
+import { BuildMeal } from '../components/buildMeal/buildMeal'
 
 
 

@@ -3,7 +3,6 @@ import { getDiet, getDietByDietitianId, getDietById, getDietitianNameByDietitian
 import { dietType } from "../../types/diet.type";
 import { userType } from '../../types/user.type';
 import { Select, MenuItem, FormControl, InputLabel, TextField } from "@mui/material";
-import './GetDiets.css'
 import { getUserById, updateUser } from '../../services/user.service';
 import { jwtDecode } from '../../auth/auth.utils';
 import { useNavigate } from 'react-router-dom';

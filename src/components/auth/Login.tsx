@@ -56,7 +56,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { loginRequest } from "../../redux/slices/login.slice";
-import "./Login.css";
 import { getUserRoleBySession } from "../../auth/auth.utils";
 
 export const Login = () => {

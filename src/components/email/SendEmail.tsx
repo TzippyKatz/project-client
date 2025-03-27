@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Select, MenuItem, Button, CircularProgress, Box, InputLabel, FormControl, SelectChangeEvent } from "@mui/material";
 import { sendEmail } from '../../services/email.service'
-import "./SendEmail.css";
 
 const SendEmail = () => {
     const [formData, setFormData] = useState({

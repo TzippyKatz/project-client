@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { getUsers, deleteUser } from '../../services/user.service';
 import { userType } from '../../types/user.type';
 import default_profile from '../../images/default_profile.png'
-import './GetUsers.css'
 import { UpdateUser } from './UpdateProfile';
 import { X } from "lucide-react";
 

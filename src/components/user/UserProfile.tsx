@@ -6,7 +6,6 @@ import { data, useNavigate } from 'react-router-dom';
 import { dietType } from '../../types/diet.type';
 import { getDietById } from '../../services/diets.service';
 import { getMeals } from '../../services/meal.service';
-import './UserProfile.css'
 import { GetMeals } from '../meals/GetMeals';
 
 

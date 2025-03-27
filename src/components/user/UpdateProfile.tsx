@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getUserById, updateUser } from "../../services/user.service";
 import axios from "axios";
 import { userType } from "../../types/user.type";
-import "./UpdateProfile.css";
 import { jwtDecode } from "../../auth/auth.utils";
 import { Eye, EyeOff } from "lucide-react";
 

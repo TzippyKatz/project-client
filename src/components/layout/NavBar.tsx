@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import logo_dietProject from '../../images/logo_dietProject.png';
-import './NavBar.css'
+import '../global.css'
 import { logout } from '../../redux/slices/login.slice';
 import { jwtDecode, removeSession } from '../../auth/auth.utils';
 

@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
                         <section className="login-prompt">
                             <h2>התאמת ארוחה לאורח חיים בריא</h2>
                             <p>התחבר כדי להתאים ארוחה בריאה המתאימה לאורח חייך</p>
-                            <ul className="features-list">
+                            <ul className="features-list" style={{listStyleType:'none'}}>
                                 <li>עקוב אחר ההתקדמות שלך</li>
                                 <li>החלף דיאטות כל תקופה</li>
                                 <li>עקוב אחר דיאטות חדשות</li>

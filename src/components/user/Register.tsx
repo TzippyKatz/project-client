@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { addUser } from "../../services/user.service";
 import { Eye, EyeOff } from "lucide-react";
-import './Register.css'
 import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
