@@ -35,11 +35,18 @@ export const GetMeals: React.FC = () => {
 
   const navigate = useNavigate()
 
-  const handleNavigate = (mealId: number) => {
+  const handleNavigateRecipe = (mealId: number) => {
     console.log("mealId: " + mealId)
     const customValues = { mealIdProps: mealId, isOpen: true };
     console.log("customValues: " + JSON.stringify(customValues))
     navigate("/recipe", { state: customValues });
+  };
+
+  const handleNavigateMeal = (mealId: number) => {
+    console.log("mealId: " + mealId)
+    const customValues = { mealId: mealId };
+    console.log("customValues: " + JSON.stringify(customValues))
+    navigate("/buildMeal", { state: customValues });
   };
 
   return (
@@ -73,8 +80,8 @@ export const GetMeals: React.FC = () => {
                 ))}
               </List>
               <DialogActions>
-                <Button color="primary" variant="contained" onClick={() => handleNavigate(meal.id)}>חפש מתכון</Button>
-                <Button color="secondary" variant="contained">ארוחה מותאמת אישית</Button>
+                <Button color="primary" variant="contained" onClick={() => handleNavigateRecipe(meal.id)}>חפש מתכון</Button>
+                <Button color="secondary" variant="contained" onClick={() => handleNavigateMeal(meal.id)}>ארוחה מותאמת אישית</Button>
               </DialogActions>
             </CardContent>
           </Card>

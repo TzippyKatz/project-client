@@ -18,9 +18,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/jspdf-autotable"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "src/jspdf-autotable.d.ts"
   ]
 }

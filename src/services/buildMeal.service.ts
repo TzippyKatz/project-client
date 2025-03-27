@@ -6,9 +6,10 @@ const buildMealServiceUrl = `${baseUrl}/BuildMeal`;
 export const optimizeMeal = async (mealRequest: mealRequest) => {
     try {
         const formData = new FormData();
-        formData.append("RequestedCategories", JSON.stringify(mealRequest.requestedCategories));
-        // formData.append("NutritionalGoals", JSON.stringify(mealRequest.NutritionalGoals));
-
+        formData.append("MealId", mealRequest.mealId.toString())
+        mealRequest.requestedCategories.forEach((category) => {
+            formData.append("RequestedCategories", category);
+        });
         const response = await axiosInstance.post(`${buildMealServiceUrl}/optimize`, formData);
         return response.data;
     } catch (error) {

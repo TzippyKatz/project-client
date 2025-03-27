@@ -25,6 +25,9 @@ import AdminPage from '../pages/adminPage'
 import NutritionistPage from '../pages/nutritionistPage'
 import { GetDiet } from '../components/diets/GetDiet'
 import { dietType } from '../types/diet.type'
+import { BuildMeal } from '../components/BuildMeal/BuildMeal'
+
+
 
 const AppRoutes: React.FC = () => {
     const { user, isAuthenticated } = useAppSelector(state => state.login);
@@ -117,6 +120,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/nutri" element={<NutritionistPage />} />
             <Route path="/getDiet" element={<GetDiet />} />
+            <Route path="/buildMeal" element={<BuildMeal />} />
 
             {/* <Route path="/addMeal" element={<AddMeal />} /> */}
             <Route path="/meal" element={<MealPage />} />
